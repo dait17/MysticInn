@@ -1,11 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-
-function getFiles(dir, ext = '') {
-    return readdirSync(resolve(__dirname, dir))
-        .filter(file => file.endsWith(ext))
-        .map(file => `${dir}/${file}`);
-}
+import path from 'path';
 
 export default defineConfig({
     plugins: [
