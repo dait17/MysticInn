@@ -69,7 +69,10 @@
                     </div>
                 </div>
                 <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                <a href="{{route('hopdong')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Hợp đông thuê nhà</a>
+                <a href="{{route('admin.hoadon')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Hoá Đơn</a>
+                <a href="{{route('admin.phong')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Phòng</a>
+                <a href="{{route('admin.hopdong')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Hợp đông</a>
+                <a href="{{route('admin.khachthue')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Khách Thuê</a>
                 <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                 <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                 <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>

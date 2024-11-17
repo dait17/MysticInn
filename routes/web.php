@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HoaDonController;
 use App\Http\Controllers\Admin\HopDongController;
+use App\Http\Controllers\Admin\KhachThueController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyRoomController;
 use App\Http\Controllers\User\HomeController;
@@ -23,6 +25,9 @@ Route::get('/dangnhap', function (){
    return view('login');
 });
 Route::get('/dangxuat',[LoginController::class,'logout'])->name('logout');
+Route::get('/chitietphong',function (){
+    return view('user.RoomDetails');
+})->name('roomdetail');
 //Route::get('/dangnhap', [LoginController::class, 'index'])->name('login');
 Route::post('/dangnhap', [LoginController::class, 'login'])->name('login');
 Route::get('/phongcuatoi', function () {
@@ -36,7 +41,11 @@ Route::post('/phongcuatoi', [MyRoomController::class, 'index'])->name('myroom');
 Route::middleware([CheckPermission::class])->group(function () {
    Route::prefix('admin')->group(function () {
       Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-      Route::get('/hopdong', [HopDongController::class, 'index'])->name('hopdong');
+      Route::get('/hopdong', [HopDongController::class, 'index'])->name('admin.hopdong');
+      Route::get('/hoadon', [HoaDonController::class, 'index'])->name('admin.hoadon');
+      Route::get('/khachthue', [KhachThueController::class, 'index'])->name('admin.khachthue');
+      Route::get('/phong', [KhachThueController::class, 'index'])->name('admin.phong');
+
    });
 });
 
