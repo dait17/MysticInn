@@ -10,4 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/phong', [RoomController::class, 'index'])->name('room');
+Route::get('/chitietphong',function(){
+    return view('user.RoomDetails');
+})->name('roomdetails');
 

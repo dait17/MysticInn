@@ -12,58 +12,26 @@
     <link rel="shortcut icon" href="ftco-32x32.png">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700" rel="stylesheet">
-{{--    <link rel="stylesheet" href="fonts/icomoon/style.css">--}}
 
-{{--    <link rel="stylesheet" href="css/bootstrap.min.css">--}}
-{{--    <link rel="stylesheet" href="css/jquery-ui.css">--}}
-{{--    <link rel="stylesheet" href="css/owl.carousel.min.css">--}}
-{{--    <link rel="stylesheet" href="css/owl.theme.default.min.css">--}}
-{{--    <link rel="stylesheet" href="css/owl.theme.default.min.css">--}}
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
 
-{{--    <link rel="stylesheet" href="css/jquery.fancybox.min.css">--}}
+    <link rel="stylesheet" href="user_assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="user_assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="user_assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="user_assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="user_assets/css/owl.theme.default.min.css">
 
-{{--    <link rel="stylesheet" href="css/bootstrap-datepicker.css">--}}
+    <link rel="stylesheet" href="user_assets/css/jquery.fancybox.min.css">
 
-{{--    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">--}}
+    <link rel="stylesheet" href="user_assets/css/bootstrap-datepicker.css">
 
-{{--    <link rel="stylesheet" href="css/aos.css">--}}
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 
-{{--    <link rel="stylesheet" href="css/style.css">--}}
+    <link rel="stylesheet" href="user_assets/css/aos.css">
 
-{{--    <script src="js/jquery-3.3.1.min.js"></script>--}}
-{{--    <script src="js/jquery-ui.js"></script>--}}
-{{--    <script src="js/popper.min.js"></script>--}}
-{{--    <script src="js/bootstrap.min.js"></script>--}}
-{{--    <script src="js/owl.carousel.min.js"></script>--}}
-{{--    <script src="js/jquery.countdown.min.js"></script>--}}
-{{--    <script src="js/bootstrap-datepicker.min.js"></script>--}}
-{{--    <script src="js/jquery.easing.1.3.js"></script>--}}
-{{--    <script src="js/aos.js"></script>--}}
-{{--    <script src="js/jquery.fancybox.min.js"></script>--}}
-{{--    <script src="js/jquery.sticky.js"></script>--}}
-    @vite([
-    'resources/css/style.css',
-    'resources/css/bootstrap.min.css',
-    'resources/css/jquery-ui.css',
-    'resources/css/owl.carousel.min.css',
-    'resources/css/owl.theme.default.min.css',
-    'resources/css/owl.theme.default.min.css',
-    'resources/css/jquery.fancybox.min.css',
-    'resources/css/bootstrap-datepicker.css',
-    'resources/css/aos.css',
+    <link rel="stylesheet" href="user_assets/css/style.css">
 
-    'resources/js/jquery-3.3.1.min.js',
-    'resources/js/jquery-ui.js',
-    'resources/js/popper.min.js',
-    'resources/js/bootstrap.min.js',
-    'resources/js/owl.carousel.min.js',
-    'resources/js/jquery.countdown.min.js',
-    'resources/js/bootstrap-datepicker.min.js',
-    'resources/js/jquery.easing.1.3.js',
-    'resources/js/aos.js',
-    'resources/js/jquery.fancybox.min.js',
-    'resources/js/jquery.sticky.js',
-    ])
+    
 
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -93,7 +61,7 @@
                     <nav class="site-navigation position-relative text-right" role="navigation">
 
                         <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                            <li><a href="#" class="nav-link">Trang Chủ</a></li>
+                            <li><a href="{{ route('home') }}" class="nav-link">Trang Chủ</a></li>
                             <li><a href="{{ route('room') }}" class="nav-link">Phòng</a></li>
                             <li><a href="" class="nav-link">Phòng Của Tôi</a></li>
                         </ul>
@@ -212,20 +180,21 @@
 
 <a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
 
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/jquery-ui.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.countdown.min.js"></script>
-<script src="js/bootstrap-datepicker.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/aos.js"></script>
-<script src="js/jquery.fancybox.min.js"></script>
-<script src="js/jquery.sticky.js"></script>
+<script src="user_assets/js/jquery-3.3.1.min.js"></script>
+<script src="user_assets/js/jquery-ui.js"></script>
+<script src="user_assets/js/popper.min.js"></script>
+<script src="user_assets/js/bootstrap.min.js"></script>
+<script src="user_assets/js/bootstrap.bundle.js"></script>
+<script src="user_assets/js/owl.carousel.min.js"></script>
+<script src="user_assets/js/jquery.countdown.min.js"></script>
+<script src="user_assets/js/bootstrap-datepicker.min.js"></script>
+<script src="user_assets/js/jquery.easing.1.3.js"></script>
+<script src="user_assets/js/aos.js"></script>
+<script src="user_assets/js/jquery.fancybox.min.js"></script>
+<script src="user_assets/js/jquery.sticky.js"></script>
 
 
-<script src="js/main.js"></script>
+<script src="user_assets/js/main.js"></script>
 
 </body>
 </html>
