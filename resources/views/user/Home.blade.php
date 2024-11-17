@@ -189,7 +189,7 @@
             <div>
             <hr style="padding: 0; margin: 0 0 10px 0; width: 26%; height: 1.5px;">
                 <p style="font-size: 20px;"><b>Chăm sóc khách hàng tận tâm</b></p>
-                <p style="font-size: 14px; text-align: justify;">Đội ngũ nhân viên am hiểu sản phẩm, sẵn lòng lắng nghe và tư vấn khách hàng trong từng quyết định. Chúng tôi đảm bảo khách hàng sẽ có trải nghiệm mua hàng dễ dàng, thoải mái và hài lòng.</p>
+                <p style="font-size: 14px; text-align: justify;">Đội ngũ nhân viên được trainning kỹ càng về từng phòng của từng khu vực, luôn sẵn lòng lắng nghe và tư vấn khách hàng trong từng lựa chọn. Chúng tôi cam kết mang đến trải nghiệm tìm kiếm và thuê phòng dễ dàng, thoải mái, và hài lòng.</p>
             </div>
         </div>
     </div>
