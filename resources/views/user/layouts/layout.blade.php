@@ -12,58 +12,50 @@
     <link rel="shortcut icon" href="ftco-32x32.png">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700" rel="stylesheet">
-{{--    <link rel="stylesheet" href="fonts/icomoon/style.css">--}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
 
-{{--    <link rel="stylesheet" href="css/bootstrap.min.css">--}}
-{{--    <link rel="stylesheet" href="css/jquery-ui.css">--}}
-{{--    <link rel="stylesheet" href="css/owl.carousel.min.css">--}}
-{{--    <link rel="stylesheet" href="css/owl.theme.default.min.css">--}}
-{{--    <link rel="stylesheet" href="css/owl.theme.default.min.css">--}}
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
 
-{{--    <link rel="stylesheet" href="css/jquery.fancybox.min.css">--}}
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
 
-{{--    <link rel="stylesheet" href="css/bootstrap-datepicker.css">--}}
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
 
-{{--    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">--}}
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 
-{{--    <link rel="stylesheet" href="css/aos.css">--}}
+    <link rel="stylesheet" href="css/aos.css">
 
-{{--    <link rel="stylesheet" href="css/style.css">--}}
+    <link rel="stylesheet" href="css/style.css">
 
-{{--    <script src="js/jquery-3.3.1.min.js"></script>--}}
-{{--    <script src="js/jquery-ui.js"></script>--}}
-{{--    <script src="js/popper.min.js"></script>--}}
-{{--    <script src="js/bootstrap.min.js"></script>--}}
-{{--    <script src="js/owl.carousel.min.js"></script>--}}
-{{--    <script src="js/jquery.countdown.min.js"></script>--}}
-{{--    <script src="js/bootstrap-datepicker.min.js"></script>--}}
-{{--    <script src="js/jquery.easing.1.3.js"></script>--}}
-{{--    <script src="js/aos.js"></script>--}}
-{{--    <script src="js/jquery.fancybox.min.js"></script>--}}
-{{--    <script src="js/jquery.sticky.js"></script>--}}
-    @vite([
-    'resources/css/style.css',
-    'resources/css/bootstrap.min.css',
-    'resources/css/jquery-ui.css',
-    'resources/css/owl.carousel.min.css',
-    'resources/css/owl.theme.default.min.css',
-    'resources/css/owl.theme.default.min.css',
-    'resources/css/jquery.fancybox.min.css',
-    'resources/css/bootstrap-datepicker.css',
-    'resources/css/aos.css',
+{{--    @vite([--}}
+{{--    'resources/css/bootstrap.min.css',--}}
+{{--    'resources/css/jquery-ui.css',--}}
+{{--    'resources/css/owl.carousel.min.css',--}}
+{{--    'resources/css/owl.theme.default.min.css',--}}
+{{--    'resources/css/jquery.fancybox.min.css',--}}
+{{--    'resources/css/bootstrap-datepicker.css',--}}
+{{--    'resources/fonts/flaticon/font/flaticon.css',--}}
+{{--    'resources/css/aos.css',--}}
+{{--    'resources/css/style.css',--}}
 
-    'resources/js/jquery-3.3.1.min.js',
-    'resources/js/jquery-ui.js',
-    'resources/js/popper.min.js',
-    'resources/js/bootstrap.min.js',
-    'resources/js/owl.carousel.min.js',
-    'resources/js/jquery.countdown.min.js',
-    'resources/js/bootstrap-datepicker.min.js',
-    'resources/js/jquery.easing.1.3.js',
-    'resources/js/aos.js',
-    'resources/js/jquery.fancybox.min.js',
-    'resources/js/jquery.sticky.js',
-    ])
+
+{{--    'resources/js/jquery-3.3.1.min.js',--}}
+{{--    'resources/js/jquery-ui.js',--}}
+{{--    'resources/js/popper.min.js',--}}
+{{--    'resources/js/bootstrap.min.js',--}}
+{{--    'resources/js/owl.carousel.min.js',--}}
+{{--    'resources/js/jquery.countdown.min.js',--}}
+{{--    'resources/js/bootstrap-datepicker.min.js',--}}
+{{--    'resources/js/jquery.easing.1.3.js',--}}
+{{--    'resources/js/aos.js',--}}
+{{--    'resources/js/jquery.fancybox.min.js',--}}
+{{--    'resources/js/jquery.sticky.js',--}}
+{{--    'resources/js/main.js',--}}
+{{--    ])--}}
 
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -86,7 +78,7 @@
             <div class="row align-items-center">
 
                 <div class="col-6 col-xl-2">
-                    <h1 class="mb-0 site-logo m-0 p-0"><a href="index.html" class="mb-0">Warehouse</a></h1>
+                    <h1 class="mb-0 site-logo m-0 p-0"><a href="index.html" class="mb-0">MysticIbb</a></h1>
                 </div>
 
                 <div class="col-12 col-md-10 d-none d-xl-block">
@@ -95,9 +87,35 @@
                         <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                             <li><a href="#" class="nav-link">Trang Chủ</a></li>
                             <li><a href="{{ route('room') }}" class="nav-link">Phòng</a></li>
-                            <li><a href="" class="nav-link">Phòng Của Tôi</a></li>
+                            @if(!Auth::check() or (Auth::check() and Auth::user()->userType==2))
+                                <li><a href="{{ route('myroom') }}" class="nav-link">Phòng Của Tôi</a></li>
+                            @else
+                                <li><a href="" class="nav-link">Dashboard</a></li>
+
+                            @endif
+                            @if(Auth::check())
+                                <li style="margin: 0 60px;">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-person-circle">{{Auth::user()->username}}</i>
+
+                                    </a>
+                                    <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">Thông tin của tôi</a></li>
+                                        <li><a class="dropdown-item" href="{{route('logout')}}">Đăng xuất</a></li>
+                                    </ul>
+                                </li>
+
+                            @else
+                                <li><a href="{{ route('login') }}" class="nav-link">Đăng nhập</a></li>
+
+                            @endif
+
+
                         </ul>
+
+
                     </nav>
+
                 </div>
 
 
@@ -111,39 +129,39 @@
 
     <div class="site-block-wrap">
         <div class="owl-carousel with-dots">
-            <div class="site-blocks-cover overlay overlay-2" style="background-image: url(images/hero_1.jpg);" data-aos="fade" id="home-section">
+{{--            <div class="site-blocks-cover overlay overlay-2" style="background-image: url(images/hero_1.jpg);" data-aos="fade" id="home-section">--}}
 
 
-                <div class="container">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-md-6 mt-lg-5 text-center">
-                            <h1 class="text-shadow">Buy &amp; Sell Property Here</h1>
-                            <p class="mb-5 text-shadow">Free website template for Real Estate websites by the fine folks at <a href="https://free-template.co/" target="_blank">Free-Template.co</a>  </p>
-                            <p><a href="https://free-template.co" target="_blank" class="btn btn-primary px-5 py-3">Get Started</a></p>
+{{--                <div class="container">--}}
+{{--                    <div class="row align-items-center justify-content-center">--}}
+{{--                        <div class="col-md-6 mt-lg-5 text-center">--}}
+{{--                            <h1 class="text-shadow">Buy &amp; Sell Property Here</h1>--}}
+{{--                            <p class="mb-5 text-shadow">Free website template for Real Estate websites by the fine folks at <a href="https://free-template.co/" target="_blank">Free-Template.co</a>  </p>--}}
+{{--                            <p><a href="https://free-template.co" target="_blank" class="btn btn-primary px-5 py-3">Get Started</a></p>--}}
 
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="site-blocks-cover overlay overlay-2" style="background-image: url(images/hero_2.jpg);" data-aos="fade" id="home-section">
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
 
-                <div class="container">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-md-6 mt-lg-5 text-center">
-                            <h1 class="text-shadow">Find Your Perfect Property For Your Home</h1>
-                            <p class="mb-5 text-shadow">Free website template for Real Estate websites by the fine folks at <a href="https://free-template.co/" target="_blank">Free-Template.co</a>  </p>
-                            <p><a href="https://free-template.co" target="_blank" class="btn btn-primary px-5 py-3">Get Started</a></p>
+{{--            </div>--}}
 
-                        </div>
-                    </div>
-                </div>
+{{--            <div class="site-blocks-cover overlay overlay-2" style="background-image: url(images/hero_2.jpg);" data-aos="fade" id="home-section">--}}
 
 
-            </div>
+{{--                <div class="container">--}}
+{{--                    <div class="row align-items-center justify-content-center">--}}
+{{--                        <div class="col-md-6 mt-lg-5 text-center">--}}
+{{--                            <h1 class="text-shadow">Find Your Perfect Property For Your Home</h1>--}}
+{{--                            <p class="mb-5 text-shadow">Free website template for Real Estate websites by the fine folks at <a href="https://free-template.co/" target="_blank">Free-Template.co</a>  </p>--}}
+{{--                            <p><a href="https://free-template.co" target="_blank" class="btn btn-primary px-5 py-3">Get Started</a></p>--}}
+
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+
+{{--            </div>--}}
         </div>
 
     </div>
@@ -216,6 +234,7 @@
 <script src="js/jquery-ui.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/jquery.countdown.min.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
