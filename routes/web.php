@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HopDongController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyRoomController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\RoomController;
+use App\Http\Middleware\CheckPermission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +32,16 @@ Route::get('/phongcuatoi', function () {
     return view('user.myroom');
 });
 Route::post('/phongcuatoi', [MyRoomController::class, 'index'])->name('myroom');
+
+Route::middleware([CheckPermission::class])->group(function () {
+   Route::prefix('admin')->group(function () {
+      Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+      Route::get('/hopdong', [HopDongController::class, 'index'])->name('hopdong');
+   });
+});
+
+//Route::prefix('/admin')->group(function () {
+//   Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+//})->middleware(CheckPermission::class);
+
 

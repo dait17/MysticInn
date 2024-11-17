@@ -4,16 +4,16 @@
     <title>Đăng Nhập</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/login-util.css">
-    <link rel="stylesheet" type="text/css" href="css/login-main.css">
-    <link rel="stylesheet" type="text/css" href="login-vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" type="text/css" href="login-vendor/animate/animate.css">
-    <link rel="stylesheet" type="text/css" href="login-vendor/css-hamburgers/hamburgers.min.css">
-    <link rel="stylesheet" type="text/css" href="login-vendor/animsition/css/animsition.min.css">
-    <link rel="stylesheet" type="text/css" href="login-vendor/select2/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="login-vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="user_assets/css/login-util.css">
+    <link rel="stylesheet" type="text/css" href="user_assets/css/login-main.css">
+    <link rel="stylesheet" type="text/css" href="user_assets/login-vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="user_assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="user_assets/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="user_assets/login-vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="user_assets/login-vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="user_assets/login-vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="user_assets/login-vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="user_assets/login-vendor/daterangepicker/daterangepicker.css">
 
 
 </head>
@@ -58,21 +58,21 @@
 </div>
 
 <!--===============================================================================================-->
-<script src="login-vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="user_assets/login-vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-<script src="login-vendor/animsition/js/animsition.min.js"></script>
+<script src="user_assets/login-vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-<script src="login-vendor/bootstrap/js/popper.js"></script>
-<script src="login-vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="user_assets/login-vendor/bootstrap/js/popper.js"></script>
+<script src="user_assets/login-vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-<script src="login-vendor/select2/select2.min.js"></script>
+<script src="user_assets/login-vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-<script src="login-vendor/daterangepicker/moment.min.js"></script>
-<script src="login-vendor/daterangepicker/daterangepicker.js"></script>
+<script src="user_assets/login-vendor/daterangepicker/moment.min.js"></script>
+<script src="user_assets/login-vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="login-vendor/countdowntime/countdowntime.js"></script>
+<script src="user_assets/login-vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-<script src="js/login-main.js"></script>
+<script src="user_assets/js/login-main.js"></script>
 
 </body>
 </html>

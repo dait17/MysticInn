@@ -10,27 +10,27 @@
     <meta name="author" content="Free-Template.co" />
 
     <link rel="shortcut icon" href="ftco-32x32.png">
-    
-    
+
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="user_assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="user_assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="user_assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="user_assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="user_assets/css/owl.theme.default.min.css">
 
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="user_assets/css/jquery.fancybox.min.css">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="user_assets/css/bootstrap-datepicker.css">
 
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="user_assets/css/aos.css">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="user_assets/css/style.css">
 
 {{--    @vite([--}}
 {{--    'resources/css/bootstrap.min.css',--}}
@@ -79,19 +79,19 @@
             <div class="row align-items-center">
 
                 <div class="col-6 col-xl-2">
-                    <h1 class="mb-0 site-logo m-0 p-0"><a href="index.html" class="mb-0">MysticIbb</a></h1>
+                    <h1 class="mb-0 site-logo m-0 p-0"><a href="index.html" class="mb-0">MysticInn</a></h1>
                 </div>
 
                 <div class="col-12 col-md-10 d-none d-xl-block">
                     <nav class="site-navigation position-relative text-right" role="navigation">
 
                         <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                            <li><a href="#" class="nav-link">Trang Chủ</a></li>
+                            <li><a href="{{route('home')}}" class="nav-link">Trang Chủ</a></li>
                             <li><a href="{{ route('room') }}" class="nav-link">Phòng</a></li>
                             @if(!Auth::check() or (Auth::check() and Auth::user()->userType==2))
                                 <li><a href="{{ route('myroom') }}" class="nav-link">Phòng Của Tôi</a></li>
                             @else
-                                <li><a href="" class="nav-link">Dashboard</a></li>
+                                <li><a href="{{route('dashboard')}}" class="nav-link">Dashboard</a></li>
 
                             @endif
                             @if(Auth::check())
@@ -231,21 +231,21 @@
 
 <a href="#top" class="gototop"><span class="icon-angle-double-up"></span></a>
 
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/jquery-ui.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap.bundle.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.countdown.min.js"></script>
-<script src="js/bootstrap-datepicker.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/aos.js"></script>
-<script src="js/jquery.fancybox.min.js"></script>
-<script src="js/jquery.sticky.js"></script>
+<script src="user_assets/js/jquery-3.3.1.min.js"></script>
+<script src="user_assets/js/jquery-ui.js"></script>
+<script src="user_assets/js/popper.min.js"></script>
+<script src="user_assets/js/bootstrap.min.js"></script>
+<script src="user_assets/js/bootstrap.bundle.js"></script>
+<script src="user_assets/js/owl.carousel.min.js"></script>
+<script src="user_assets/js/jquery.countdown.min.js"></script>
+<script src="user_assets/js/bootstrap-datepicker.min.js"></script>
+<script src="user_assets/js/jquery.easing.1.3.js"></script>
+<script src="user_assets/js/aos.js"></script>
+<script src="user_assets/js/jquery.fancybox.min.js"></script>
+<script src="user_assets/js/jquery.sticky.js"></script>
 
 
-<script src="js/main.js"></script>
+<script src="user_assets/js/main.js"></script>
 
 </body>
 </html>

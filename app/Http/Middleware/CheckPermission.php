@@ -12,15 +12,16 @@ class CheckPermission
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            return redirect()->route('home');
-        }
-
-
-        return redirect(route('login'));
+            if (Auth::user()->userType == 1)
+                return $next($request);
+            else
+                return redirect()->route('home');
+        } else
+            return redirect()->route('login');
     }
 }
