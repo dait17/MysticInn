@@ -10,7 +10,8 @@
     <meta name="author" content="Free-Template.co" />
 
     <link rel="shortcut icon" href="ftco-32x32.png">
-
+    
+    
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="fonts/icomoon/style.css">
