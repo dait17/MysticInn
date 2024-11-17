@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Warehouse &mdash; Free Website Template by Free-Template.co</title>
@@ -11,6 +11,7 @@
 
     <link rel="shortcut icon" href="ftco-32x32.png">
 
+    
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900|Oswald:300,400,700" rel="stylesheet">
 {{--    <link rel="stylesheet" href="fonts/icomoon/style.css">--}}
 
