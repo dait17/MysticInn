@@ -128,7 +128,7 @@
         </div>
     </div>
     <div style="width: 100%; margin: 150px 0 0 0;">
-        <h3 style="text-align: center; text-transform: none; font-size:31px; margin-bottom: 20px;">Các căn phòng có lượt xem nhiều nhất</h3>
+        <h3 style="text-align: center; text-transform: none; font-size:31px; margin-bottom: 20px;">Các căn phòng còn trống</h3>
         <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
             <!-- random 4 căn phòng bất kì -->
             <div class="sp-list">
