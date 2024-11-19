@@ -46,6 +46,7 @@ Route::middleware([CheckPermission::class])->group(function () {
       Route::get('/hoadon', [HoaDonController::class, 'index'])->name('admin.hoadon');
       Route::get('/khachthue', [KhachThueController::class, 'index'])->name('admin.khachthue');
       Route::get('/phong', [PhongController::class, 'index'])->name('admin.phong');
+      Route::get('/phong/them', [PhongController::class, 'create'])->name('admin.phong.them');
 
    });
 });

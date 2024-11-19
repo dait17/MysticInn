@@ -9,6 +9,11 @@ class PhongController extends Controller
 {
     function index()
     {
-        return view('admin.Phong');
+        return view('admin.Phong.index');
+    }
+
+    function create()
+    {
+        return view('admin.Phong.create');
     }
 }
