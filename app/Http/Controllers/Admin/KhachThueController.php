@@ -9,6 +9,10 @@ class KhachThueController extends Controller
 {
     function index()
     {
-        return view('admin.KhachThue');
+        return view('admin.KhachThue.index');
+    }
+    function create()
+    {
+        return view('admin.KhachThue.create');
     }
 }
