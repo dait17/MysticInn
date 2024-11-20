@@ -415,7 +415,11 @@
         <td align='left' width='30%'></td>
         <td align='center' width='30%'></td>
         <td align='center' class='sign italic'>
-            Khánh Hòa, <!--@ngayIn } --> 19
+            <?php
+                $date = date("Y-m-d");
+                $date = explode("-",$date);
+            ?>
+            Khánh Hòa, <?php echo "ngày ".$date[2]." tháng ".$date[1]." năm ".$date[0] ?>
         </td>
     </tr>
     <tr>

@@ -296,7 +296,6 @@
                             </div>
                             <div class="modal-body">
                                 <form id="invoiceForm">
-                                
                                     <div class="mb-3" style="color: red;">
                                         Bạn chắc chắn muốn xóa hóa đơn "HD01" ???
                                     </div>

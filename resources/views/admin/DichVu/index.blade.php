@@ -118,7 +118,6 @@
             text-align: center;
         }
         .tendv{
-            width: 60%;
             border-radius: 10px;
             border: 2px solid #ddd;
             line-height: 35px;
@@ -145,7 +144,7 @@
                 <td>Tên dịch vụ:</td>
                 <td></td>
                 <td colspan="4">
-                    <div class="tenphong">
+                    <div class="tendv">
                         <input size="20" type="text">
                     </div>
                 </td>
