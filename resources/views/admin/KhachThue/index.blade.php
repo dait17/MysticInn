@@ -3,52 +3,52 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/khach-thue.css') }}">
 <div class="ql-khach-thue container mt-4">
-    
+
     <style>
         .ql-khach-thue {
             margin-top: 20px;
             background-color: #87CEEB;
             border-radius: 8px;
-            padding: 20px; 
+            padding: 20px;
         }
         .ql-khach-thue .form-control {
-            margin-bottom: 15px; 
+            margin-bottom: 15px;
         }
         .ql-khach-thue .btn {
-            margin-left: 5px; 
+            margin-left: 5px;
         }
         .table-bordered {
-            border: 2px solid #000; 
+            border: 2px solid #000;
         }
-        .table-bordered th, 
+        .table-bordered th,
         .table-bordered td {
             color: #000;
-            text-align: center; 
-            vertical-align: middle; 
+            text-align: center;
+            vertical-align: middle;
         }
         .table-bordered tbody tr:nth-child(odd) {
             background-color: #fff;
         }
         .table-bordered tbody tr:nth-child(even) {
-            background-color: #f9f9f9; 
+            background-color: #f9f9f9;
         }
         .table-bordered th {
-            background-color: #343a40; 
-            color: #fff; 
-            font-weight: bold; 
+            background-color: #343a40;
+            color: #fff;
+            font-weight: bold;
         }
         .table-bordered td {
             font-weight: 600;
         }
     </style>
 
-    <div class="container mt-4"> 
+    <div class="container mt-4">
         <form action="#" method="GET" class="mb-3 p-3" style="background-color: #ffffff; border-radius: 8px;">
         <h3 class="text-center">Quản lý khách thuê</h3>
 
         <div class="d-flex justify-content-between mb-3">
-            <div></div> 
-            <button onclick="window.location.href='{{ route('admin.khachthue.them') }}';" type="button" class="btn btn-success">Thêm mới</button>
+            <div></div>
+            <button onclick="window.location.href='{{ route('admin.khachthue.create') }}';" type="button" class="btn btn-success">Thêm mới</button>
         </div>
         <h5>Thanh tìm kiếm</h5>
             <div class="row">
@@ -72,7 +72,7 @@
                 </div>
 
                 <!-- Cột bên phải -->
-                <div class="col-md-6"> 
+                <div class="col-md-6">
                     <div class="form-group">
                         <select name="gioiTinh" id="gioiTinh" class="form-control">
                             <option value="">--Chọn giới tính--</option>
@@ -143,7 +143,7 @@
                     <td>Hàng Đào</td>
                     <td>
                         <a href="#" class="btn btn-primary btn-sm">Xem chi tiết</a>
-                        <button onclick="window.location.href='{{ route('admin.khachthue.sua') }}';" type="button" class="btn btn-warning btn-sm">Sửa</button>
+                        <button onclick="window.location.href='{{ route('admin.khachthue.edit',1) }}';" type="button" class="btn btn-warning btn-sm">Sửa</button>
                         <button type="button" class="btn btn-danger btn-sm" onclick="confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
                     </td>
                 </tr>

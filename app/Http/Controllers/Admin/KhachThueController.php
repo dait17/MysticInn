@@ -7,18 +7,57 @@ use Illuminate\Http\Request;
 
 class KhachThueController extends Controller
 {
-    function index()
+    public function index()
     {
         return view('admin.KhachThue.index');
     }
 
-    function create()
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
         return view('admin.KhachThue.create');
     }
-    
-    function edit()
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+//        dd($id);
         return view('admin.KhachThue.edit');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }

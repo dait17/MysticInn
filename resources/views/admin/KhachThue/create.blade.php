@@ -3,33 +3,33 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/khach-thue.css') }}">
 <div class="ql-khach-thue container mt-4">
-    
+
     <style>
         .ql-khach-thue {
             margin-top: 20px;
             background-color: #87CEEB;
             border-radius: 8px;
-            padding: 20px; 
+            padding: 20px;
         }
         .ql-khach-thue .form-control {
-            margin-bottom: 15px; 
+            margin-bottom: 15px;
         }
         .ql-khach-thue .btn {
-            margin-left: 5px; 
+            margin-left: 5px;
         }
         label {
             color: #000;
-            font-weight: bold; 
+            font-weight: bold;
         }
     </style>
 
-    <div class="container mt-4"> 
+    <div class="container mt-4">
         <form action="#" method="GET" class="mb-3 p-3" style="background-color: #ffffff; border-radius: 8px;">
         <h3 class="text-center">Thêm mới khách thuê</h3>
 
         <div class="d-flex justify-content-between mb-3">
             <div></div> <!-- Khoảng trống bên trái -->
-            <button onclick="window.location.href='{{ route('admin.khachthue') }}';" type="button" class="btn btn-primary">Trở lại</button>
+            <button onclick="window.location.href='{{ route('admin.khachthue.index') }}';" type="button" class="btn btn-primary">Trở lại</button>
         </div>
             <div class="row">
                 <!-- Cột bên trái -->
@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- Cột bên phải -->
-                <div class="col-md-6"> 
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="gioiTinh">Giới tính</label>
                         <select name="gioiTinh" id="gioiTinh" class="form-control">
@@ -84,7 +84,7 @@
             <!-- Thanh chức năng -->
             <div class="d-flex justify-content-center mt-3">
                 <button onclick="alert('Bạn đã thêm thành công')" type="button"  class="btn btn-success mr-2">Thêm mới</button>
-                <button onclick="window.location.href='{{ route('admin.khachthue.them') }}';" type="reset" class="btn btn-danger">Reset</button>
+                <button onclick="window.location.href='{{ route('admin.khachthue.create') }}';" type="reset" class="btn btn-danger">Reset</button>
             </div>
         </form>
 
