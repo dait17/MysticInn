@@ -11,4 +11,8 @@ class HoaDonController extends Controller
     {
         return view('admin.HoaDon');
     }
+    public function inds()
+    {
+        return view('admin.HoaDon.inds');
+    }
 }
