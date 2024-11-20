@@ -39,15 +39,15 @@ Route::get('/phongcuatoi', function () {
 Route::post('/phongcuatoi', [MyRoomController::class, 'index'])->name('myroom');
 
 Route::middleware([CheckPermission::class])->group(function () {
-   Route::prefix('admin')->group(function () {
-      Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-      Route::get('/hopdong', [HopDongController::class, 'index'])->name('admin.hopdong');
-      Route::get('/hoadon', [HoaDonController::class, 'index'])->name('admin.hoadon');
-      Route::get('/khachthue', [KhachThueController::class, 'index'])->name('admin.khachthue');
-      Route::get('/phong', [KhachThueController::class, 'index'])->name('admin.phong');
-
-   });
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('hopDong', HopDongController::class);
+        Route::get('/hoadon', [HoaDonController::class, 'index'])->name('hoadon');
+        Route::get('/khachthue', [KhachThueController::class, 'index'])->name('khachthue');
+        Route::get('/phong', [KhachThueController::class, 'index'])->name('phong');
+    });
 });
+
 
 //Route::prefix('/admin')->group(function () {
 //   Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
