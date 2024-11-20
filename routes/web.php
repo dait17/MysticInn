@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DichVuController;
 use App\Http\Controllers\Admin\HoaDonController;
 use App\Http\Controllers\Admin\HopDongController;
 use App\Http\Controllers\Admin\KhachThueController;
@@ -46,8 +47,10 @@ Route::middleware([CheckPermission::class])->group(function () {
         Route::resource('hopDong', HopDongController::class);
         Route::resource('phong', PhongController::class);
         Route::resource('noithat', NoiThatController::class);
-        Route::get('/hoadon', [HoaDonController::class, 'index'])->name('hoadon');
-        Route::get('/khachthue', [KhachThueController::class, 'index'])->name('khachthue');
+        Route::resource('dichvu', DichVuController::class);
+        Route::resource('khachthue', KhachThueController::class);
+        Route::get('hoadon/inds', [HoaDonController::class, 'inds'])->name('hoadon.inds');
+        Route::resource('hoadon', HoaDonController::class);
     });
 });
 

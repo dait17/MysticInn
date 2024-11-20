@@ -56,7 +56,7 @@
             border-color: #aea4a4;
         }
 
-        table.table-print td {    
+        table.table-print td {
             border-color: #aea4a4;
         }
         table.table-print td:last-child {
@@ -323,7 +323,7 @@
     </style>
 </head>
 <body>
-    
+
 </body>
 </html>
 <link href="~/Content/print.css" rel="stylesheet" />

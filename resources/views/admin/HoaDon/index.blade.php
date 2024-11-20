@@ -89,7 +89,7 @@
         }
         .reset-button:hover {
             color: rgb(2, 100, 200);;
-        } 
+        }
         .d-flex {
             display: flex;
         }
@@ -136,7 +136,7 @@
             <tr>
                 <td>Từ ngày: </td>
                 <td></td>
-                <td> 
+                <td>
                     <input type="date">
                 </td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -233,7 +233,7 @@
                 </div>
             </div>
         </div>
-        <a href="{{ route('admin.hoadon.in') }}" type="button" class="btn btn-outline-dark  mr-2">In danh sách</a>
+        <a href="{{ route('admin.hoadon.inds') }}" type="button" class="btn btn-outline-dark  mr-2">In danh sách</a>
     </div>
 
     <!-- Bảng dữ liệu -->
