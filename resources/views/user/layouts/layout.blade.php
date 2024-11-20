@@ -91,7 +91,7 @@
                             @if(!Auth::check() or (Auth::check() and Auth::user()->userType==2))
                                 <li><a href="{{ route('myroom') }}" class="nav-link">Phòng Của Tôi</a></li>
                             @else
-                                <li><a href="{{route('dashboard')}}" class="nav-link">Dashboard</a></li>
+                                <li><a href="{{route('admin.dashboard')}}" class="nav-link">Dashboard</a></li>
 
                             @endif
                             @if(Auth::check())

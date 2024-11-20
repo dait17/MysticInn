@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\HoaDonController;
 use App\Http\Controllers\Admin\HopDongController;
 use App\Http\Controllers\Admin\KhachThueController;
 use App\Http\Controllers\Admin\PhongController;
+use App\Http\Controllers\Admin\NoiThatController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyRoomController;
 use App\Http\Controllers\User\HomeController;
@@ -40,13 +41,13 @@ Route::get('/phongcuatoi', function () {
 Route::post('/phongcuatoi', [MyRoomController::class, 'index'])->name('myroom');
 
 Route::middleware([CheckPermission::class])->group(function () {
-   Route::prefix('admin')->group(function () {
+   Route::prefix('admin')->name('admin.')->group(function () {
       Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-      Route::get('/hopdong', [HopDongController::class, 'index'])->name('admin.hopdong');
-      Route::get('/hoadon', [HoaDonController::class, 'index'])->name('admin.hoadon');
-      Route::get('/khachthue', [KhachThueController::class, 'index'])->name('admin.khachthue');
-      Route::get('/phong', [PhongController::class, 'index'])->name('admin.phong');
-      Route::get('/phong/them', [PhongController::class, 'create'])->name('admin.phong.them');
+      Route::get('/hopdong', [HopDongController::class, 'index'])->name('hopdong');
+      Route::get('/hoadon', [HoaDonController::class, 'index'])->name('hoadon');
+      Route::get('/khachthue', [KhachThueController::class, 'index'])->name('khachthue');
+      Route::resource('/phong', PhongController::class);
+      Route::resource('/noithat', NoiThatController::class);
 
    });
 });
