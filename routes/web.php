@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HoaDonController;
 use App\Http\Controllers\Admin\HopDongController;
 use App\Http\Controllers\Admin\KhachThueController;
+use App\Http\Controllers\Admin\NoiThatController;
+use App\Http\Controllers\Admin\PhongController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyRoomController;
 use App\Http\Controllers\User\HomeController;
@@ -42,9 +44,10 @@ Route::middleware([CheckPermission::class])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('hopDong', HopDongController::class);
+        Route::resource('phong', PhongController::class);
+        Route::resource('noithat', NoiThatController::class);
         Route::get('/hoadon', [HoaDonController::class, 'index'])->name('hoadon');
         Route::get('/khachthue', [KhachThueController::class, 'index'])->name('khachthue');
-        Route::get('/phong', [KhachThueController::class, 'index'])->name('phong');
     });
 });
 
