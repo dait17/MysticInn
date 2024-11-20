@@ -25,7 +25,7 @@
 
     <div class="container mt-4"> 
         <form action="#" method="GET" class="mb-3 p-3" style="background-color: #ffffff; border-radius: 8px;">
-        <h3 class="text-center">Thêm mới khách thuê</h3>
+        <h3 class="text-center">Chỉnh sửa thông tin khách thuê</h3>
 
         <div class="d-flex justify-content-between mb-3">
             <div></div> <!-- Khoảng trống bên trái -->
@@ -83,8 +83,8 @@
 
             <!-- Thanh chức năng -->
             <div class="d-flex justify-content-center mt-3">
-                <button onclick="alert('Bạn đã thêm thành công')" type="button"  class="btn btn-success mr-2">Thêm mới</button>
-                <button onclick="window.location.href='{{ route('admin.khachthue.them') }}';" type="reset" class="btn btn-danger">Reset</button>
+                <button onclick="confirm('Bạn có muốn sửa không?')" type="button"  class="btn btn-warning mr-2">Cập nhật</button>
+                <button onclick="window.location.href='{{ route('admin.khachthue.sua') }}';" type="button" class="btn btn-danger">Reset</button>
             </div>
         </form>
 

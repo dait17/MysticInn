@@ -11,8 +11,14 @@ class KhachThueController extends Controller
     {
         return view('admin.KhachThue.index');
     }
+
     function create()
     {
         return view('admin.KhachThue.create');
+    }
+    
+    function edit()
+    {
+        return view('admin.KhachThue.edit');
     }
 }
