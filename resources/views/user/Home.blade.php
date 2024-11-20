@@ -172,6 +172,9 @@
                 </div>
             </div>
         </div>
+        <div style="display: flex; justify-content: center; margin-top: 20px;">
+            <button type="button" class="btn btn-dark">XEM THÊM</button>
+        </div>
     </div>
     <div style="width: 100%; height: 400px; margin-top: 150px; background: rgb(184, 146, 106); color: white;">
         <h3 style="text-align: center; text-transform: none; font-size:31px; padding-top:70px; padding-bottom:20px; ">Tại sao nên chọn chúng tôi</h3>

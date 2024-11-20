@@ -233,7 +233,7 @@
                 </div>
             </div>
         </div>
-        <!-- <button type="button" class="btn btn-outline-dark  mr-2">In danh sách</button> -->
+        <a href="{{ route('admin.hoadon.in') }}" type="button" class="btn btn-outline-dark  mr-2">In danh sách</a>
     </div>
 
     <!-- Bảng dữ liệu -->
@@ -257,7 +257,7 @@
                 <td>40.000</td>
                 <td>240.000</td>
                 <td>Đã thanh toán</td>
-                <td><i class="fa-solid fa-pencil"></i>&nbsp;|&nbsp;<i data-bs-toggle="modal" data-bs-target="#XemChiTietHD" class="fa-solid fa-eye"></i>&nbsp;|&nbsp;<i data-bs-toggle="modal" data-bs-target="#XoaHD" class="fa-solid fa-delete-left"></i></td>
+                <td><i class="fa-solid fa-pencil"></i>&nbsp;|&nbsp;<i data-bs-toggle="modal" data-bs-target="#XemChiTietHD" class="fa-solid fa-up-right-and-down-left-from-center""></i>&nbsp;|&nbsp;<i data-bs-toggle="modal" data-bs-target="#XoaHD" class="fa-solid fa-delete-left"></i></td>
                 <!-- Xem chi tiết hóa đơn -->
                 <div class="modal fade" id="XemChiTietHD" tabindex="-1" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -312,7 +312,6 @@
         </tbody>
     </table>
 </div>
-
 </body>
 </html>
 @endsection
