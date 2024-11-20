@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PhongController extends Controller
+class NoiThatController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('Admin.Phong.index');
+        return view('Admin.NoiThat.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class PhongController extends Controller
      */
     public function create()
     {
-        return view('Admin.Phong.create');
+        return view('Admin.NoiThat.create');
     }
 
     /**
@@ -36,7 +36,7 @@ class PhongController extends Controller
      */
     public function show(string $id)
     {
-        
+        //
     }
 
     /**
@@ -44,7 +44,7 @@ class PhongController extends Controller
      */
     public function edit(string $id)
     {
-        return view('Admin.Phong.edit');
+        return view('Admin.NoiThat.edit');
     }
 
     /**
