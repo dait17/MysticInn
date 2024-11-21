@@ -21,6 +21,7 @@ class DichVuController extends Controller
         }
 
         $dichVus = $query->get();
+        $dichVus = DichVu::paginate(10); 
         return view('admin.DichVu.index',compact('dichVus'));
     }
 
