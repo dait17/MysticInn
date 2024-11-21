@@ -131,49 +131,22 @@
         <h3 style="text-align: center; text-transform: none; font-size:31px; margin-bottom: 20px;">Các căn phòng còn trống</h3>
         <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
             <!-- random 4 căn phòng bất kì -->
+            @foreach ($randomPhongs as $p)
             <div class="sp-list">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('Images/tinhte.jpg') }}" class="card-img-top" alt="">
+                    <img src="{{ asset('Images/anhPhong/'.$p->anhDD) }}" class="card-img-top" alt="">
                     <div class="card-body">
-                        <h5 class="card-title">Tên phòng</h5>
-                        <p class="card-text">Giá tiền</p>
+                        <h5 class="card-title">Phòng: {{$p->tenPhong}}</h5>
+                        <p class="card-text">Diện tích: {{$p->dienTich}} mét vuông</p>
+                        <p class="card-text">Giá thuê: {{ number_format($p->giaPhong, 0) }} vnđ</p>
                         <a href="#" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
-            <div class="sp-list">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('Images/tinhte.jpg') }}" class="card-img-top" alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">Tên phòng</h5>
-                        <p class="card-text">Giá tiền</p>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="sp-list">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('Images/tinhte.jpg') }}" class="card-img-top" alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">Tên phòng</h5>
-                        <p class="card-text">Giá tiền</p>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="sp-list">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('Images/tinhte.jpg') }}" class="card-img-top" alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">Tên phòng</h5>
-                        <p class="card-text">Giá tiền</p>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
         <div style="display: flex; justify-content: center; margin-top: 20px;">
-            <button type="button" class="btn btn-dark">XEM THÊM</button>
+            <button type="button" onclick="xemthem()" class="btn btn-dark">XEM THÊM</button>
         </div>
     </div>
     <div style="width: 100%; height: 400px; margin-top: 150px; background: rgb(184, 146, 106); color: white;">
@@ -207,6 +180,11 @@
         </div>
     </div>
 </body>
+<script>
+    function xemthem() {
+        window.location.href = "{{ route('room') }}";
+    }
+</script>
 </html>
 
 @endsection
