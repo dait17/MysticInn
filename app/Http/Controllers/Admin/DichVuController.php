@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DichVu;
 use Illuminate\Http\Request;
 
 class DichVuController extends Controller
@@ -10,9 +11,17 @@ class DichVuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.DichVu.index');
+        $dvName = $request->input('dvName');
+        $query = DichVu::query();
+
+        if ($dvName) {
+            $query->where('tenDV', 'like', '%' . $dvName . '%');
+        }
+
+        $dichVus = $query->get();
+        return view('admin.DichVu.index',compact('dichVus'));
     }
 
     /**
@@ -20,7 +29,7 @@ class DichVuController extends Controller
      */
     public function create()
     {
-        //
+    
     }
 
     /**
@@ -28,7 +37,23 @@ class DichVuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $lastDichVu = DichVu::latest('maDV')->first();
+        $newId = $lastDichVu ? $lastDichVu->maDV + 1 : 1;
+        $dichvu = new DichVu();
+        $dichvu->maDV = $newId;
+        $dichvu->tenDV = $request->tenDV;
+        $dichvu->giaDV = $request->giaDV;
+        if($request->batBuoc)
+            $dichvu->batBuoc = 1;
+        else $dichvu->batBuoc = 0;
+        //$dichvu->batBuoc = $request->batBuoc;
+        $dichvu->donViTinh = $request->donViTinh;
+        //$dichvu->dvThang = $request->dvThang;
+        if($request->dvThang)
+            $dichvu->dvThang = 1;
+        else $dichvu->dvThang = 0;
+        $dichvu->save();
+        return redirect()->route('admin.dichvu.index');
     }
 
     /**
@@ -52,7 +77,15 @@ class DichVuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $dichvu = DichVu::find($id);
+        $dichvu->maDV = $request->maDV;
+        $dichvu->tenDV = $request->tenDV;
+        $dichvu->giaDV = $request->giaDV;
+        $dichvu->batBuoc = $request->batBuoc;
+        $dichvu->donViTinh = $request->donViTinh;
+        $dichvu->dvThang = $request->dvThang;
+        $dichvu->save();
+        return redirect()->route('admin.dichvu.index');
     }
 
     /**
@@ -60,6 +93,8 @@ class DichVuController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $dichvu = DichVu::find($id);
+        $dichvu->delete();
+        return redirect()->route('admin.dichvu.index');
     }
 }

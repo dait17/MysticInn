@@ -13,16 +13,6 @@
             margin: 0 !important;
             page-break-after: always;
         }
-        body {
-            font-family: Arial;
-            font-size: 11px;
-            margin:0px;
-            padding:0px;
-        }
-        body#body {
-            font-family: Arial,sans-serif;
-            margin:0 auto;
-        }
         #overlay {
             left:0;
             top:0;
@@ -341,6 +331,7 @@
     </tr>
 </table>
 <br />
+@foreach ($hoaDons as $hd)
 <table id='tb_main_body' style='border-collapse: collapse;' name='tb_main_body' width='700' class="table-print" border="1">
     <tr>
         <th>
@@ -355,7 +346,7 @@
         <th>
             Tên nhân viên
         </th>
-        <th align="center">
+        <th>
             Giới tính
         </th>
         <th>
@@ -406,7 +397,8 @@
         <td width='10%'>
         </td>
     </tr>
-</table>
+</table>    
+@endforeach
 <!-- @{
     var ngayIn = " ngày " + DateTime.Now.Day.ToString() + " tháng " + DateTime.Now.Month.ToString() + " năm " + DateTime.Now.Year.ToString();
 } -->

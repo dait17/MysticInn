@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -145,14 +146,14 @@
                 <td></td>
                 <td colspan="4">
                     <div class="tendv">
-                        <input size="20" type="text">
+                        <input size="20" id="dvName" type="text">
                     </div>
                 </td>
             </tr>
             <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td></tr>
         </table>
     </div>
-    <div class="reset-button">Đặt lại</div>
+    <div class="reset-button" onclick="resetFilters()">Đặt lại</div>
 </div>
 <div class="container mt-5">
     <div class="d-flex justify-content-end mb-3">
@@ -168,7 +169,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form action="{{route('admin.dichvu.store')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <table .table>
                                 <tr>
                                     <td>
@@ -176,7 +178,7 @@
                                     </td>
                                     <td>
                                         <div class="tendv">
-                                            <input size="50" type="text">
+                                            <input size="50" name="tenDV" type="text">
                                         </div>
                                     </td>
                                 </tr>
@@ -184,7 +186,7 @@
                                     <td><label for="invoiceNumber" class="form-label">Giá dịch vụ:</label></td>
                                     <td>
                                         <div class="tendv">
-                                            <input size="50" type="number">
+                                            <input size="50" name="giaDV" type="number">
                                         </div>
                                     </td>
                                 </tr>
@@ -192,7 +194,7 @@
                                     <td><label for="invoiceNumber" class="form-label">Đơn vị tính:</label></td>
                                     <td>
                                         <div class="tendv">
-                                            <input size="50" type="text">
+                                            <input size="50" name="donViTinh" type="text">
                                         </div>
                                     </td>
                                 </tr>
@@ -200,7 +202,7 @@
                                     <td><label for="invoiceNumber" class="form-label">Bắt buộc:</label></td>
                                     <td>
                                         <div class="form-check">
-                                            <input style="margin-top: 8px;" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <input style="margin-top: 8px;" class="form-check-input" type="checkbox" name="batBuoc" value="1" id="flexCheckDefault">
                                             <label sty class="form-check-label" for="flexCheckDefault">
                                                 Có
                                             </label>
@@ -210,13 +212,11 @@
                                 <tr>
                                     <td><label for="invoiceNumber" class="form-label">Dịch vụ Tháng:</label></td>
                                     <td>
-                                    <div class="form-check form-check-inline">
-                                        <input style="margin-top: 8px;" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                        <label class="form-check-label" for="inlineRadio1">Theo tháng</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                        <input style="margin-top: 8px;" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                        <label class="form-check-label" for="inlineRadio2">Theo số lần sử dụng</label>
+                                        <div class="form-check">
+                                            <input style="margin-top: 8px;" class="form-check-input" type="checkbox" name="dvThang" value="1" id="flexCheckDefault">
+                                            <label sty class="form-check-label" for="flexCheckDefault">
+                                                Có
+                                            </label>
                                         </div>
                                     </td>
                                 </tr>
@@ -233,7 +233,7 @@
     </div>
 
     <!-- Bảng dữ liệu -->
-    <table class="table table-hover">
+    <table class="table table-index table-hover">
         <thead>
             <tr style="background-color: lightgrey;">
                 <th>Mã Dịch Vụ</th>
@@ -246,16 +246,26 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($dichVus as $dv)
             <tr>
-                <td>DV01</td>
-                <td>Dọn Phòng</td>
-                <td>20.000</td>
-                <td>lần</td>
-                <td></td>
-                <td><i class="fa-solid fa-check"></i></td>
-                <td><i data-bs-toggle="modal" data-bs-target="#EditDV" class="fa-solid fa-pencil"></i>&nbsp;|&nbsp;<i data-bs-toggle="modal" data-bs-target="#XoaDV" class="fa-solid fa-delete-left"></i></td>
+                <td>{{$dv->maDV}}</td>
+                <td>{{$dv->tenDV}}</td>
+                <td>{{$dv->giaDV == (int) $dv->giaDV ? number_format($dv->giaDV, 0) : number_format($dv->giaDV, 2)}}</td>
+                <td>{{$dv->donViTinh}}</td>
+                <td>
+                    @if ($dv->batBuoc == 1)
+                        <i class="fa-solid fa-check"></i>
+                    @endif
+                </td>
+                <td>
+                    @if ($dv->dvThang == 1)
+                        <i class="fa-solid fa-check"></i>
+                    @endif
+                </td>
+                
+                <td><i data-bs-toggle="modal" data-bs-target="#EditDV_{{$dv->maDV}}" class="fa-solid fa-pencil"></i>&nbsp;|&nbsp;<i data-bs-toggle="modal" data-bs-target="#XoaDV_{{$dv->maDV}}" class="fa-solid fa-delete-left"></i></td>
                 <!-- xóa dịch vụ -->
-                <div class="modal fade" id="XoaDV" tabindex="-1" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
+                <div class="modal fade" id="XoaDV_{{$dv->maDV}}" tabindex="-1" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -263,10 +273,11 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="invoiceForm">
-                                
+                                <form action="{{route('admin.dichvu.destroy',$dv->maDV)}}" method="POST" id="invoiceForm" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('DELETE')
                                     <div class="mb-3" style="color: red;">
-                                        Bạn chắc chắn muốn xóa dịch vụ "DV01" ???
+                                        Bạn chắc chắn muốn xóa dịch vụ "{{$dv->maDV}}" : {{$dv->tenDV}} ???
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary" >Thực Hiện</button>
@@ -277,12 +288,14 @@
                     </div>
                 </div>
             </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
 </body>
+@foreach ($dichVus as $dv)
 <!-- Sửa dịch vụ -->
-<div class="modal fade" id="EditDV" tabindex="-1" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
+<div class="modal fade" id="EditDV_{{$dv->maDV}}" tabindex="-1" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -290,15 +303,27 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="{{route('admin.dichvu.update', $dv->maDV)}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
                     <table .table>
+                        <tr>
+                            <td>
+                                <label for="invoiceNumber" class="form-label">Mã dịch vụ:</label>
+                            </td>
+                            <td>
+                                <div class="tendv">
+                                    <input size="50" name="maDV" type="text" value="{{$dv->maDV}}">
+                                </div>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <label for="invoiceNumber" class="form-label">Tên dịch vụ:</label>
                             </td>
                             <td>
                                 <div class="tendv">
-                                    <input size="50" type="text">
+                                    <input size="50" name="tenDV" type="text" value="{{$dv->tenDV}}">
                                 </div>
                             </td>
                         </tr>
@@ -306,7 +331,7 @@
                             <td><label for="invoiceNumber" class="form-label">Giá dịch vụ:</label></td>
                             <td>
                                 <div class="tendv">
-                                    <input size="50" type="number">
+                                    <input size="50" name="giaDV" type="number" value="{{$dv->giaDV}}">
                                 </div>
                             </td>
                         </tr>
@@ -314,7 +339,7 @@
                             <td><label for="invoiceNumber" class="form-label">Đơn vị tính:</label></td>
                             <td>
                                 <div class="tendv">
-                                    <input size="50" type="text">
+                                    <input size="50" name="donViTinh" type="text" value="{{$dv->donViTinh}}">
                                 </div>
                             </td>
                         </tr>
@@ -322,9 +347,10 @@
                             <td><label for="invoiceNumber" class="form-label">Bắt buộc:</label></td>
                             <td>
                                 <div class="form-check">
-                                    <input style="margin-top: 8px;" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label sty class="form-check-label" for="flexCheckDefault">
-                                        Có
+                                    <input style="margin-top: 8px;" name="batBuoc" class="form-check-input" type="checkbox" value="{{$dv->batBuoc}}" id="flexCheckDefault" 
+                                        @if ($dv->batBuoc == 1) checked @endif>
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Có
                                     </label>
                                 </div>
                             </td>
@@ -332,25 +358,94 @@
                         <tr>
                             <td><label for="invoiceNumber" class="form-label">Dịch vụ Tháng:</label></td>
                             <td>
-                            <div class="form-check form-check-inline">
-                                <input style="margin-top: 8px;" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                <label class="form-check-label" for="inlineRadio1">Theo tháng</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                <input style="margin-top: 8px;" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                <label class="form-check-label" for="inlineRadio2">Theo số lần sử dụng</label>
+                                <div class="form-check">
+                                    <input style="margin-top: 8px;" name="dvThang" class="form-check-input" type="checkbox" value="{{$dv->dvThang}}" id="flexCheckDefault" 
+                                        @if ($dv->dvThang == 1) checked @endif>
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Có
+                                    </label>
                                 </div>
                             </td>
                         </tr>
                     </table>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-primary" >Thực Hiện</button>
+                        <button type="submit" onclick="sendEditDV" class="btn btn-primary" >Thực Hiện</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+@endforeach
 </html>
+<script>
+function resetFilters() {
+    // Reset các trường nhập liệu
+    document.getElementById("dvName").value = "";
+    
+    let url = 'dichvu?';
+    // Gửi dữ liệu qua fetch
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        // Cập nhật bảng với dữ liệu mới
+        const tbody = document.querySelector('.table-index tbody');
+        tbody.innerHTML = ''; // Xóa nội dung cũ
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        const newRows = tempDiv.querySelectorAll('.table-index tbody tr');
+        newRows.forEach(row => tbody.appendChild(row));
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+const dvNameInput = document.getElementById('dvName');
+let debounceTimer;
+
+// Hàm gửi dữ liệu
+function sendData() {
+    const dvName = dvNameInput.value;
+
+    // Xây dựng URL với các tham số
+    let url = 'dichvu?';
+    if (dvName) {
+        url += 'dvName=' + encodeURIComponent(dvName);
+    }
+
+    // Gửi dữ liệu qua fetch
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        // Cập nhật bảng với dữ liệu mới
+        const tbody = document.querySelector('.table-index tbody');
+        tbody.innerHTML = ''; // Xóa nội dung cũ
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        const newRows = tempDiv.querySelectorAll('.table-index tbody tr');
+        newRows.forEach(row => tbody.appendChild(row));
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+dvNameInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer); 
+    debounceTimer = setTimeout(sendData, 300);
+});
+
+
+</script>
 @endsection
