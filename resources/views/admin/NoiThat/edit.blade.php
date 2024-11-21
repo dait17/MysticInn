@@ -11,23 +11,25 @@
     <div class="card shadow-sm">
         <h2 class="text-center mb-4 mt-4">Sửa Nội Thất</h2>
         <div class="card-body">
-            <form>
+            <form action="{{ route('admin.noithat.update', $nt->maNT) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
                 <!-- Mã Nội Thất -->
                 <div class="mb-3">
                     <label for="maNoiThat" class="form-label">Mã Nội Thất</label>
-                    <input type="text" class="form-control" id="maNoiThat" placeholder="1" readonly>
+                    <input type="text" class="form-control" id="maNoiThat" name="maNT" value="{{$nt->maNT}}" readonly>
                 </div>
                 
                 <!-- Tên Nội Thất -->
                 <div class="mb-3">
                     <label for="tenNoiThat" class="form-label">Tên Nội Thất</label>
-                    <input type="text" class="form-control" id="tenNoiThat" placeholder="Nhập tên nội thất">
+                    <input type="text" class="form-control" id="tenNoiThat" name="tenNT" placeholder="Nhập tên nội thất" value="{{$nt->tenNT}}">
                 </div>
                 
                 <!-- Giá Nội Thất -->
                 <div class="mb-3">
                     <label for="giaNoiThat" class="form-label">Giá Nội Thất (VND)</label>
-                    <input type="number" class="form-control" id="giaNoiThat" placeholder="Nhập giá nội thất">
+                    <input type="number" class="form-control" id="giaNoiThat" name="giaNT" placeholder="Nhập giá nội thất" value="{{$nt->giaNT}}">
                 </div>
                 
                 <!-- Nút Thêm -->

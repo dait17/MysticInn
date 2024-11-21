@@ -30,7 +30,7 @@ class PhongController extends Controller
             $query->where('trangThai', $request->get('status'));
         }
 
-        $phongs = $query->get();
+        $phongs = $query->paginate(6);
 
         return view('admin.phong.index', compact('phongs'));
     }

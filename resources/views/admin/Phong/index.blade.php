@@ -73,30 +73,6 @@
         margin-top: 20px;
     }
 
-    .pagination-buttons {
-        display: flex;
-        align-items: center;
-    }
-
-    .pagination-buttons button {
-        padding: 8px 16px;
-        margin: 0 5px;
-        background-color: #0dcaf0;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .pagination-buttons button:hover {
-        background-color: #17a2b8;
-    }
-
-    .pagination-buttons span {
-        font-size: 18px;
-        margin: 0 10px;
-    }
-
 </style>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -296,11 +272,10 @@
 
 </div>
 <!-- Phân trang -->
-<div class="pagination-wrapper">
-    <div class="pagination-buttons" id="pagination">
-        <button class="prev-btn btn-info" onclick="changePage(-1)">← Previous</button>
-        <span id="page-number">Page 1</span>
-        <button class="next-btn" onclick="changePage(1)">Next →</button>
+@if ($phongs->total() > 6)
+    <div class="pagination-wrapper">
+        {{ $phongs->links('pagination::bootstrap-4') }}
     </div>
-</div>
+@endif
+
 @endsection
