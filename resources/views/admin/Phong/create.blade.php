@@ -81,11 +81,13 @@
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">Thêm Phòng Mới</h2>
-    <form action="#" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.phong.store') }}" method="post" enctype="multipart/form-data">
+        @csrf
         <!-- Mã phòng -->
         <div class="mb-3">
             <label for="maPhong" class="form-label"><b>Mã Phòng</b></label>
-            <input type="text" class="form-control" id="maPhong" name="maPhong" placeholder="7" readonly>
+            <!-- Hiển thị mã phòng mới tự động -->
+            <input type="text" class="form-control" id="maPhong" name="maPhong" value="{{$newId}}" readonly>
         </div>
 
         <!-- Tên phòng -->
@@ -125,7 +127,7 @@
         <!-- Ảnh phòng -->
         <div class="mb-3">
             <label for="anhPhong" class="form-label"><b>Ảnh Phòng</b></label>
-            <input type="file" class="form-control" id="anhPhong" name="anhPhong" accept="image/*">
+            <input type="file" class="form-control" id="anhDD" name="anhDD" accept="image/*">
         </div>
 
         <!-- Submit -->

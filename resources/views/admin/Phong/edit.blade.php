@@ -81,51 +81,61 @@
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">Sửa thông tin phòng</h2>
-    <form action="#" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.phong.update', $p->maPhong) }}" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
         <!-- Mã phòng -->
         <div class="mb-3">
             <label for="maPhong" class="form-label"><b>Mã Phòng</b></label>
-            <input type="text" class="form-control" id="maPhong" name="maPhong" placeholder="1" readonly>
+            <input type="text" class="form-control" id="maPhong" name="maPhong" value="{{$p->maPhong}}" readonly>
         </div>
 
         <!-- Tên phòng -->
         <div class="mb-3">
             <label for="tenPhong" class="form-label"><b>Tên Phòng</b></label>
-            <input type="text" class="form-control" id="tenPhong" name="tenPhong" placeholder="Nhập tên phòng" required>
+            <input type="text" class="form-control" id="tenPhong" name="tenPhong" placeholder="Nhập tên phòng" value="{{$p->tenPhong}}" required>
         </div>
 
         <!-- Diện tích -->
         <div class="mb-3">
             <label for="dienTich" class="form-label"><b>Diện Tích (m²)</b></label>
-            <input type="number" class="form-control" id="dienTich" name="dienTich" placeholder="Nhập diện tích" min="0" step="0.1" required>
+            <input type="number" class="form-control" id="dienTich" name="dienTich" placeholder="Nhập diện tích" value="{{$p->dienTich}}" required>
         </div>
 
         <!-- Giá phòng -->
         <div class="mb-3">
             <label for="giaPhong" class="form-label"><b>Giá Phòng (VNĐ)</b></label>
-            <input type="number" class="form-control" id="giaPhong" name="giaPhong" placeholder="Nhập giá phòng" min="0" required>
+            <input type="number" class="form-control" id="giaPhong" name="giaPhong" placeholder="Nhập giá phòng" min="0" value="{{$p->giaPhong}}" required>
         </div>
 
         <!-- Ghi chú -->
         <div class="mb-3">
             <label for="ghiChu" class="form-label"><b>Ghi Chú</b></label>
-            <textarea class="form-control" id="ghiChu" name="ghiChu" rows="3" placeholder="Nhập ghi chú (nếu có)"></textarea>
+            <textarea class="form-control" id="ghiChu" name="ghiChu" rows="3" placeholder="Nhập ghi chú (nếu có)">{{$p->ghiChu}}</textarea>
         </div>
 
         <!-- Trạng thái -->
         <div class="mb-3">
             <label for="trangThai" class="form-label"><b>Trạng Thái</b></label>
             <select class="form-select" id="trangThai" name="trangThai" required>
-                <option value="Còn trống">Còn trống</option>
-                <option value="Đã thuê">Đã thuê</option>
-                <option value="Đang sửa chữa">Đang sửa chữa</option>
+                <option value="0" {{ $p->trangThai == 0 ? 'selected' : '' }}>Đã thuê</option>
+                <option value="1" {{ $p->trangThai == 1 ? 'selected' : '' }}>Còn trống</option>
+                <option value="2" {{ $p->trangThai == 2 ? 'selected' : '' }}>Đang sửa chữa</option>
             </select>
+        </div>
+
+        <!-- Ảnh phòng hiện tại -->
+        <div class="mb-3">
+            <label for="anhDD" class="form-label"><b>Ảnh Phòng hiện tại</b></label>
+            @if ($p->anhDD)
+                <input type="text" class="form-control mb-2" value="{{ $p->anhDD }}" readonly>
+            @endif
         </div>
 
         <!-- Ảnh phòng -->
         <div class="mb-3">
-            <label for="anhPhong" class="form-label"><b>Ảnh Phòng</b></label>
-            <input type="file" class="form-control" id="anhPhong" name="anhPhong" accept="image/*">
+            <label for="anhDD" class="form-label"><b>Ảnh Phòng</b></label>
+            <input type="file" class="form-control" id="anhDD" name="anhDD" accept="image/*">
         </div>
 
         <!-- Submit -->
