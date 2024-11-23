@@ -36,7 +36,7 @@ class PhongController extends Controller
      */
     public function show(string $id)
     {
-        
+
     }
 
     /**
@@ -62,4 +62,5 @@ class PhongController extends Controller
     {
         //
     }
+
 }

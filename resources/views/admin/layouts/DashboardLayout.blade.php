@@ -70,7 +70,7 @@
                 </div>
                 <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
                 <a href="{{route('admin.hoadon.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Hoá Đơn</a>
-                <a href="{{route('admin.hopDong.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Hợp đông</a>
+                <a href="{{route('admin.hopdong.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Hợp đông</a>
                 <a href="{{route('admin.khachthue.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Khách Thuê</a>
                 <a href="{{route('admin.phong.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Phòng</a>
                 <a href="{{route('admin.noithat.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Nội thất</a>

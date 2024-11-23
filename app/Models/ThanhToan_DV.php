@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ThanhToan_DV extends Model
 {
     protected $table = 'thanhtoan_dv';
-    protected $timestamp = false;
+    public $timestamps = false;
     protected $fillable = ['maHoaDon', 'maDKDV', 'soSuDung', 'donGia'];
 
     public function hoadon()

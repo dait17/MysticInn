@@ -10,7 +10,7 @@ class AnhPhong extends Model
 
     protected $primaryKey = 'maAnh';
 
-    protected $timestamp = false;
+    public $timestamps = false;
 
     protected $fillable = ['maPhong', 'duongDan'];
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class HD_NT extends Model
 {
     protected $table = 'hd_nt';
-    protected $timestamp = false;
+    public $timestamps = false;
     protected $fillable = ['maHopDong', 'maNT', 'giaNT', 'trangThai'];
 
     public function hopdong()
@@ -17,6 +17,12 @@ class HD_NT extends Model
 
     public function noithat()
     {
-        return $this->hasOne(HopDong::class, 'maNT', 'maNT');
+        return $this->hasOne(NoiThat::class, 'maNT', 'maNT');
+    }
+
+    protected function setKeysForSaveQuery($query)
+    {
+        return $query->where('maHopDong', $this->getAttribute('maHopDong'))
+            ->where('maNT', $this->getAttribute('maNT'));
     }
 }

@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class HopDong extends Model
 {
     protected $table = 'hopdong';
-    protected $timestamp = false;
+    public $timestamps = false;
     protected $primaryKey = 'maHopDong';
-    protected $fillable = ['maPhong', 'userId', 'ngayKy', 'ngayHetHan', 'giaThue', 'tienCoc'];
+    protected $fillable = ['maPhong', 'maKT', 'userId', 'ngayKy', 'ngayHetHan', 'ngayKetThuc', 'giaThue', 'tienCoc'];
 
     public function user()
     {
@@ -19,5 +19,11 @@ class HopDong extends Model
     public function phong()
     {
         return $this->hasOne(Phong::class, 'maPhong', 'maPhong');
+    }
+
+    public function khachthue()
+    {
+        return $this->hasOne(KhachThue::class, 'maKT', 'maKT');
+
     }
 }
