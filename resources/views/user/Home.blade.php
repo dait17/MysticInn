@@ -134,7 +134,7 @@
             @foreach ($randomPhongs as $p)
             <div class="sp-list">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('Images/anhPhong/'.$p->anhDD) }}" class="card-img-top" alt="">
+                    <img style="width: 288px; height: 216px;" src="{{ asset('Images/anhPhong/'.$p->anhDD) }}" class="card-img-top" alt="">
                     <div class="card-body">
                         <h5 class="card-title">Phòng: {{$p->tenPhong}}</h5>
                         <p class="card-text">Diện tích: {{$p->dienTich}} mét vuông</p>
