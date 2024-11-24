@@ -93,32 +93,6 @@
         filterContent.style.display = "none";
     });
 
-    //xem chi tiêt
-    function getRoomDetails(button) {
-    const roomId = button.getAttribute('data-id');
-
-    // Gửi yêu cầu Ajax đến controller
-    fetch(`/admin/phong/${roomId}`)
-        .then(response => response.json())
-        .then(data => {
-            // Cập nhật thông tin phòng vào modal
-            document.getElementById('roomName').innerText = "phòng" + " " + data.tenPhong;
-            document.getElementById('roomArea').innerText = data.dienTich + " " + "(m²)";
-            document.getElementById('roomPrice').innerText = data.giaPhong + " " + "(VNĐ)";
-            document.getElementById('roomNote').innerText = data.ghiChu;
-            let roomStatus = '';
-            if (data.trangThai === 0) {
-                roomStatus = 'Đã thuê';
-            } else if (data.trangThai === 1) {
-                roomStatus = 'Còn trống';
-            } else if (data.trangThai === 2) {
-                roomStatus = 'Sửa chữa';
-            }
-            document.getElementById('roomStatus').innerText = roomStatus;
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
     // xóa
     function setDeleteFormAction(id) {
         var form = document.getElementById('deleteForm');
@@ -129,28 +103,6 @@
 </script>
 
 <!-- Modal -->
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel">Chi tiết phòng</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Tên phòng:</strong>  <span id="roomName"></span></p>
-                <p><strong>Diện tích:</strong> <span id="roomArea"></span></p>
-                <p><strong>Giá:</strong> <span id="roomPrice"></span></p>
-                <p><strong>Ghi chú:</strong> <span id="roomNote"></span></p>
-                <p><strong>Tình trạng:</strong> <span id="roomStatus"></span></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-  
 <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -250,13 +202,7 @@
                             @endif
                         </p>
                         <div class="action-buttons d-flex justify-content-around mt-5 ">
-                            <button class="btn btn-info w-100 mb-2" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#detailModal" 
-                                onclick="getRoomDetails(this)" 
-                                data-id="{{ $phong->maPhong }}">
-                                Xem
-                            </button>
+                            <button onclick="window.location.href='{{route('admin.phong.show', $phong->maPhong)}}';" class="btn btn-info w-100 mb-2"> Xem </button>
                             <button onclick="window.location.href='{{route('admin.phong.edit', $phong->maPhong)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
                             <button class="btn btn-danger w-100 mb-2" 
                                 data-bs-toggle="modal" 

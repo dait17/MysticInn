@@ -40,12 +40,14 @@ Route::get('/phongcuatoi', function () {
     return view('user.myroom');
 });
 Route::post('/phongcuatoi', [MyRoomController::class, 'index'])->name('myroom');
-
 Route::middleware([CheckPermission::class])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('hopDong', HopDongController::class);
         Route::resource('phong', PhongController::class);
+        //
+        Route::delete('/phong/{phongId}/delete_anhPhong/{anhPhongId}', [PhongController::class, 'deleteAnhPhong'])->name('admin.phong.deleteAnhPhong');
+        //
         Route::resource('noithat', NoiThatController::class);
         Route::resource('dichvu', DichVuController::class);
         Route::resource('khachthue', KhachThueController::class);

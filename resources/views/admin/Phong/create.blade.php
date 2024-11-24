@@ -124,12 +124,19 @@
             </select>
         </div>
 
-        <!-- Ảnh phòng -->
+        <!-- Ảnh đại diện -->
         <div class="mb-3">
-            <label for="anhPhong" class="form-label"><b>Ảnh Phòng</b></label>
+            <label for="anhDD" class="form-label"><b>Ảnh Đại Diện</b></label>
             <input type="file" class="form-control" id="anhDD" name="anhDD" accept="image/*">
         </div>
 
+        <!-- Ảnh chi tiết phòng -->
+        <div class="mb-3">
+            <label for="anhPhong" class="form-label"><b>Ảnh Chi Tiết Phòng</b></label>
+            <input type="file" class="form-control" id="anhPhong" name="anhPhong[]" accept="image/*" multiple>
+            <small class="form-text text-muted">Có thể chọn nhiều ảnh.</small>
+        </div>
+    
         <!-- Submit -->
         <div class="text-center">
             <button type="submit" class="btn btn-primary">Thêm Phòng</button>

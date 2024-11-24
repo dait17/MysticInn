@@ -84,6 +84,7 @@
     <form action="{{ route('admin.phong.update', $p->maPhong) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+
         <!-- Mã phòng -->
         <div class="mb-3">
             <label for="maPhong" class="form-label"><b>Mã Phòng</b></label>
@@ -124,18 +125,36 @@
             </select>
         </div>
 
-        <!-- Ảnh phòng hiện tại -->
+        <!-- Ảnh chính hiện tại -->
         <div class="mb-3">
-            <label for="anhDD" class="form-label"><b>Ảnh Phòng hiện tại</b></label>
+            <label for="anhDD" class="form-label"><b>Ảnh đại diện</b></label>
             @if ($p->anhDD)
-                <input type="text" class="form-control mb-2" value="{{ $p->anhDD }}" readonly>
+                <div class="mb-2">
+                    <img src="{{ asset('Images/' . $p->anhDD) }}" alt="Ảnh Chính" style="max-width: 100%; height: auto;">
+                </div>
             @endif
+            <input type="file" class="form-control" id="anhDD" name="anhDD" accept="image/*">
         </div>
 
-        <!-- Ảnh phòng -->
+        <!-- Danh sách ảnh hiện tại -->
         <div class="mb-3">
-            <label for="anhDD" class="form-label"><b>Ảnh Phòng</b></label>
-            <input type="file" class="form-control" id="anhDD" name="anhDD" accept="image/*">
+            <label for="anhPhong" class="form-label"><b>Các Ảnh Bổ Sung Hiện Tại</b></label>
+            <div class="row">
+                @foreach ($anhPhong as $anh)
+                    <div class="col-md-3 mb-2">
+                        <img src="{{ asset('admin_assets/img_phong/' . $anh->duongDan) }}" alt="Ảnh Phòng" style="width: 100%; height: auto;">
+                        <p class="text-center mt-2">
+                            <button type="button" onclick="deleteAnhPhong({{ $p->maPhong }}, {{ $anh->maAnh }})">Xóa</button>
+                        </p>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- Thêm ảnh bổ sung mới -->
+        <div class="mb-3">
+            <label for="anhPhong" class="form-label"><b>Thêm Ảnh Bổ Sung</b></label>
+            <input type="file" class="form-control" id="anhPhong" name="anhPhong[]" accept="image/*" multiple>
         </div>
 
         <!-- Submit -->
@@ -144,4 +163,28 @@
         </div>
     </form>
 </div>
+
+<script>
+    function deleteAnhPhong(phongId, anhPhongId) {
+        if (confirm('Bạn có chắc chắn muốn xóa ảnh này?')) {
+            fetch(`/admin/phong/${phongId}/delete_anhPhong/${anhPhongId}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Xóa ảnh thất bại!');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('Xóa ảnh thất bại!');
+            });
+        }
+    }
+</script>
+
 @endsection
