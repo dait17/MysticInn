@@ -74,6 +74,7 @@
                 <a href="{{route('admin.khachthue.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Khách Thuê</a>
                 <a href="{{route('admin.phong.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Phòng</a>
                 <a href="{{route('admin.noithat.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Nội thất</a>
+                <a href="{{route('admin.nhanvien.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Nhân Viên</a>
                 <a href="{{route('admin.dichvu.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Dịch vụ</a>
                 <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                 <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
