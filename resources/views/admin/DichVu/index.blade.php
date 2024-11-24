@@ -90,7 +90,7 @@
         }
         .reset-button:hover {
             color: rgb(2, 100, 200);;
-        } 
+        }
         .d-flex {
             display: flex;
         }
@@ -241,7 +241,7 @@
                 <th>Giá Dịch Vụ</th>
                 <th>Đơn Vị Tính</th>
                 <th>Bắt Buộc</th>
-                <th>Dịch Vụ Tháng</th> <!-- Tính theo tháng, Tính theo số lượng !-->
+                <th>Dịch Vụ Tháng</th>
                 <th>Tap</th>
             </tr>
         </thead>
@@ -262,35 +262,12 @@
                         <i class="fa-solid fa-check"></i>
                     @endif
                 </td>
-                
                 <td><i data-bs-toggle="modal" data-bs-target="#EditDV_{{$dv->maDV}}" class="fa-solid fa-pencil"></i>&nbsp;|&nbsp;<i data-bs-toggle="modal" data-bs-target="#XoaDV_{{$dv->maDV}}" class="fa-solid fa-delete-left"></i></td>
-                <!-- xóa dịch vụ -->
-                <div class="modal fade" id="XoaDV_{{$dv->maDV}}" tabindex="-1" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="addInvoiceModalLabel">Xác nhận</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{route('admin.dichvu.destroy',$dv->maDV)}}" method="POST" id="invoiceForm" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('DELETE')
-                                    <div class="mb-3" style="color: red;">
-                                        Bạn chắc chắn muốn xóa dịch vụ "{{$dv->maDV}}" : {{$dv->tenDV}} ???
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary" >Thực Hiện</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </tr>
             @endforeach
         </tbody>
     </table>
+
 </div>
 </body>
 @foreach ($dichVus as $dv)
@@ -347,7 +324,7 @@
                             <td><label for="invoiceNumber" class="form-label">Bắt buộc:</label></td>
                             <td>
                                 <div class="form-check">
-                                    <input style="margin-top: 8px;" name="batBuoc" class="form-check-input" type="checkbox" value="{{$dv->batBuoc}}" id="flexCheckDefault" 
+                                    <input style="margin-top: 8px;" name="batBuoc" class="form-check-input" type="checkbox" value="{{$dv->batBuoc}}" id="flexCheckDefault"
                                         @if ($dv->batBuoc == 1) checked @endif>
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Có
@@ -359,7 +336,7 @@
                             <td><label for="invoiceNumber" class="form-label">Dịch vụ Tháng:</label></td>
                             <td>
                                 <div class="form-check">
-                                    <input style="margin-top: 8px;" name="dvThang" class="form-check-input" type="checkbox" value="{{$dv->dvThang}}" id="flexCheckDefault" 
+                                    <input style="margin-top: 8px;" name="dvThang" class="form-check-input" type="checkbox" value="{{$dv->dvThang}}" id="flexCheckDefault"
                                         @if ($dv->dvThang == 1) checked @endif>
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Có
@@ -383,7 +360,7 @@
 function resetFilters() {
     // Reset các trường nhập liệu
     document.getElementById("dvName").value = "";
-    
+
     let url = 'dichvu?';
     // Gửi dữ liệu qua fetch
     fetch(url, {
@@ -442,7 +419,7 @@ function sendData() {
 }
 
 dvNameInput.addEventListener('input', () => {
-    clearTimeout(debounceTimer); 
+    clearTimeout(debounceTimer);
     debounceTimer = setTimeout(sendData, 300);
 });
 
