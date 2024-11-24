@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DichVuController;
 use App\Http\Controllers\Admin\HoaDonController;
 use App\Http\Controllers\Admin\HopDongController;
 use App\Http\Controllers\Admin\KhachThueController;
+use App\Http\Controllers\Admin\NhanVienController;
 use App\Http\Controllers\Admin\NoiThatController;
 use App\Http\Controllers\Admin\PhongController;
 use App\Http\Controllers\LoginController;
@@ -47,6 +48,7 @@ Route::middleware([CheckPermission::class])->group(function () {
         Route::resource('hopDong', HopDongController::class);
         Route::resource('phong', PhongController::class);
         Route::resource('noithat', NoiThatController::class);
+        Route::resource('nhanvien', NhanVienController::class);
         Route::resource('dichvu', DichVuController::class);
         Route::resource('khachthue', KhachThueController::class);
         Route::get('hoadon/inds', [HoaDonController::class, 'inds'])->name('hoadon.inds');
