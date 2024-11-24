@@ -10,4 +10,6 @@ class MyRoomController extends Controller
     {
         return view('user.myroom');
     }
+
+
 }

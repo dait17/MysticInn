@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PhongController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyRoomController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\InfoController;
 use App\Http\Controllers\User\RoomController;
 use App\Http\Middleware\CheckPermission;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,13 @@ Route::get('/phongcuatoi', function () {
     return view('user.myroom');
 });
 Route::post('/phongcuatoi', [MyRoomController::class, 'index'])->name('myroom');
+
+Route::get('/thongtin/{userId}', [InfoController::class, 'index'])->name('info');
+Route::get('/thongtin/capnhat/{userId}', [InfoController::class, 'edit'])->name('info.edit');
+Route::post('/thongtin/capnhat', [InfoController::class, 'update'])->name('info.update');
+Route::get('/thongtin/them/{maHopDong}', [InfoController::class, 'create'])->name('info.create');
+Route::post('/thongtin/them/{maHopDong}', [InfoController::class, 'store'])->name('info.store');
+Route::delete('/thongtin/xoa/{maHopDong}/{maKT}', [InfoController::class, 'destroy'])->name('info.destroy');
 
 Route::middleware([CheckPermission::class])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
