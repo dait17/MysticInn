@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ChucVuController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DichVuController;
 use App\Http\Controllers\Admin\HD_KTController;
@@ -67,7 +68,8 @@ Route::middleware([CheckPermission::class])->group(function () {
         Route::get('hopdong/xuatfile{maHopDong}', [HopDongController::class, 'exportToWord'])->name('hopdong.xuatfile');
         Route::delete('hd_kt/{maHopDong}/{maKT}', [HD_KTController::class, 'destroy'])->name('hd_kt.destroy');
         Route::resources([
-            'hopdong'=> HopDongController::class
+            'hopdong'=> HopDongController::class,
+            'chucvu' => ChucVuController::class
         ]);
         Route::resource('phong', PhongController::class);
         Route::resource('noithat', NoiThatController::class);
