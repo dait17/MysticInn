@@ -13,6 +13,7 @@
         }
         .ql-khach-thue .form-control {
             margin-bottom: 15px;
+            color: #000;
         }
         .ql-khach-thue .btn {
             margin-left: 5px;
@@ -21,11 +22,18 @@
             color: #000;
             font-weight: bold;
         }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button 
+        {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 
     <div class="container mt-4">
-        <form action="#" method="GET" class="mb-3 p-3" style="background-color: #ffffff; border-radius: 8px;">
-        <h3 class="text-center">Thêm mới khách thuê</h3>
+        <form action="{{ route('admin.khachthue.store') }}" method="POST" enctype="multipart/form-data" class="mb-3 p-3" style="background-color: #ffffff; border-radius: 8px;">
+            @csrf
+            <h3 class="text-center">Thêm mới khách thuê</h3>
 
         <div class="d-flex justify-content-between mb-3">
             <div></div> <!-- Khoảng trống bên trái -->
@@ -36,23 +44,23 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="maKT">Mã khách thuê</label>
-                        <input type="text" name="maKT" id="maKT" class="form-control" placeholder="KT001"@readonly(true)>
+                        <input type="text" name="maKT" id="maKT" class="form-control" value="{{ $newid }}" @readonly(true)>
                     </div>
                     <div class="form-group">
                         <label for="hoKT">Họ</label>
-                        <input type="text" name="hoKT" id="hoKT" class="form-control" placeholder="">
+                        <input type="text" name="hoKT" id="hoKT" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="tenKT">Tên</label>
-                        <input type="text" name="tenKT" id="tenKT" class="form-control" placeholder="">
+                        <input type="text" name="tenKT" id="tenKT" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="sdt">Số điện thoại</label>
-                        <input type="text" name="sdt" id="sdt" class="form-control" placeholder="">
+                        <input type="number" name="SDT" id="sdt" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="cccd">Căn cước công dân</label>
-                        <input type="text" name="cccd" id="cccd" class="form-control" placeholder="">
+                        <input type="number" name="CCCD" id="cccd" class="form-control" required>
                     </div>
                 </div>
 
@@ -62,32 +70,57 @@
                         <label for="gioiTinh">Giới tính</label>
                         <select name="gioiTinh" id="gioiTinh" class="form-control">
                             <option value="">--Chọn giới tính--</option>
-                            <option value="1">Nam</option>
-                            <option value="0">Nữ</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="ngaySinh">Ngày sinh</label>
+                        <input type="date" name="ngaySinh" id="ngaySinh" class="form-control" required>
+                    </div>
+                    <div class="form-group">
                         <label for="tinh">Tỉnh</label>
-                        <input type="text" name="tinh" id="tinh" class="form-control" placeholder="">
+                        <input type="text" name="tinh" id="tinh" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="huyen">Huyện</label>
-                        <input type="text" name="huyen" id="huyen" class="form-control" placeholder="">
+                        <input type="text" name="huyen" id="huyen" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="xa">Xã</label>
-                        <input type="text" name="xa" id="xa" class="form-control" placeholder="">
+                        <input type="text" name="xa" id="xa" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="daXacThuc">Xác thực</label>
+                        <select name="daXacThuc" id="daXacThuc" class="form-control">
+                            <option value="Chưa xác thực">Chưa xác thực</option>
+                            <option value="Đã xác thực">Đã xác thực</option> 
+                        </select>
                     </div>
                 </div>
             </div>
 
             <!-- Thanh chức năng -->
             <div class="d-flex justify-content-center mt-3">
-                <button onclick="alert('Bạn đã thêm thành công')" type="button"  class="btn btn-success mr-2">Thêm mới</button>
-                <button onclick="window.location.href='{{ route('admin.khachthue.create') }}';" type="reset" class="btn btn-danger">Reset</button>
+                <button type="submit" class="btn btn-success mr-2">Thêm mới</button>
+                <input type="reset" class="btn btn-danger" value="Reset" onclick="resetFormAndErrors()">
             </div>
         </form>
-
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+<script>
+    function resetFormAndErrors() {
+    document.querySelectorAll('.alert-danger').forEach(el => el.remove());
+    document.querySelector('form').reset();
+}
+</script>
     </div>
 </div>
 
