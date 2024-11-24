@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\NoiThat;
 use Illuminate\Http\Request;
 
 class NoiThatController extends Controller
@@ -12,7 +13,8 @@ class NoiThatController extends Controller
      */
     public function index()
     {
-        return view('Admin.NoiThat.index');
+        $noithats = NoiThat::paginate(5);
+        return view('Admin.NoiThat.index', compact('noithats'));
     }
 
     /**
@@ -20,7 +22,9 @@ class NoiThatController extends Controller
      */
     public function create()
     {
-        return view('Admin.NoiThat.create');
+        $lastNT = NoiThat::latest('maNT')->first();
+        $newId = $lastNT ? $lastNT->maNT + 1 : 1;
+        return view('Admin.NoiThat.create', compact('newId'));
     }
 
     /**
@@ -28,7 +32,14 @@ class NoiThatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nt = new NoiThat();
+        $nt->maNT = $request->maNT;
+        $nt->tenNT = $request->tenNT;
+        $nt->giaNT = $request->giaNT;
+
+        $nt->save();
+
+        return redirect()->route('admin.noithat.index')->with('success', 'Thêm thành công');
     }
 
     /**
@@ -44,7 +55,8 @@ class NoiThatController extends Controller
      */
     public function edit(string $id)
     {
-        return view('Admin.NoiThat.edit');
+        $nt = NoiThat::find($id);
+        return view('Admin.NoiThat.edit', compact('nt'));
     }
 
     /**
@@ -52,7 +64,15 @@ class NoiThatController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $nt = NoiThat::find($id);
+
+        $nt->tenNT = $request->tenNT;
+        $nt->giaNT = $request->giaNT;
+
+        $nt->save();
+
+        // Redirect hoặc trả về thông báo sau khi cập nhật thành công
+        return redirect()->route('admin.noithat.index')->with('success', 'Cập nhật thành công.');
     }
 
     /**
@@ -60,6 +80,10 @@ class NoiThatController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $nt = NoiThat::find($id);
+        if($nt){
+            $nt->delete();
+            return redirect()->route('admin.noithat.index')->with('success', 'xóa thành công.');
+        }
     }
 }

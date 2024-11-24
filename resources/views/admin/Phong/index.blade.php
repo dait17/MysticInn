@@ -12,7 +12,6 @@
     .card {
         position: relative;
         overflow: hidden;
-        background-image: url("https://via.placeholder.com/300x200");
         background-size: cover;
         background-position: center;
         height: 250px;
@@ -74,30 +73,6 @@
         margin-top: 20px;
     }
 
-    .pagination-buttons {
-        display: flex;
-        align-items: center;
-    }
-
-    .pagination-buttons button {
-        padding: 8px 16px;
-        margin: 0 5px;
-        background-color: #0dcaf0;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .pagination-buttons button:hover {
-        background-color: #17a2b8;
-    }
-
-    .pagination-buttons span {
-        font-size: 18px;
-        margin: 0 10px;
-    }
-
 </style>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -117,30 +92,66 @@
 
         filterContent.style.display = "none";
     });
+
+    //xem chi tiêt
+    function getRoomDetails(button) {
+    const roomId = button.getAttribute('data-id');
+
+    // Gửi yêu cầu Ajax đến controller
+    fetch(`/admin/phong/${roomId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Cập nhật thông tin phòng vào modal
+            document.getElementById('roomName').innerText = "phòng" + " " + data.tenPhong;
+            document.getElementById('roomArea').innerText = data.dienTich + " " + "(m²)";
+            document.getElementById('roomPrice').innerText = data.giaPhong + " " + "(VNĐ)";
+            document.getElementById('roomNote').innerText = data.ghiChu;
+            let roomStatus = '';
+            if (data.trangThai === 0) {
+                roomStatus = 'Đã thuê';
+            } else if (data.trangThai === 1) {
+                roomStatus = 'Còn trống';
+            } else if (data.trangThai === 2) {
+                roomStatus = 'Sửa chữa';
+            }
+            document.getElementById('roomStatus').innerText = roomStatus;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // xóa
+    function setDeleteFormAction(id) {
+        var form = document.getElementById('deleteForm');
+        form.action = '/admin/phong/' + id;
+    }
+
+
 </script>
 
 <!-- Modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="detailModalLabel">Chi tiết phòng</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Chi tiết phòng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Tên phòng:</strong>  <span id="roomName"></span></p>
+                <p><strong>Diện tích:</strong> <span id="roomArea"></span></p>
+                <p><strong>Giá:</strong> <span id="roomPrice"></span></p>
+                <p><strong>Ghi chú:</strong> <span id="roomNote"></span></p>
+                <p><strong>Tình trạng:</strong> <span id="roomStatus"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
         </div>
-        <div class="modal-body">
-          <p><strong>Tên phòng:</strong> <span id="roomName"></span></p>
-          <p><strong>Diện tích:</strong> <span id="roomAddress"></span></p>
-          <p><strong>Giá:</strong> <span id="roomPrice"></span></p>
-          <p><strong>Tình trạng:</strong> <span id="roomStatus"></span></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
+
   
-  <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -152,7 +163,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-danger">Xóa</button>
+                <!-- Form xóa phòng -->
+                <form id="deleteForm" action="{{ route('admin.phong.destroy', 0) }}" method="POST" style="display: inline-block;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
             </div>
         </div>
     </div>
@@ -169,36 +185,38 @@
         </button>
     </div>
     <div class="card-body-filter" id="filterContent" style="display: none">
-        <form method="GET" action="">
+        <form method="GET" action="{{ url()->current() }}">
             <div class="row">
                 <!-- Bộ lọc theo Diện tích -->
                 <div class="col-md-3">
-                    <label for="address" class="form-label"><b>Diện tích</b></label>
-                    <input type="text" name="address" id="address" class="form-control" placeholder="Nhập Diện tích">
+                    <label for="area" class="form-label"><b>Diện tích</b></label>
+                    <input type="text" name="area" id="area" class="form-control" placeholder="Nhập Diện tích" value="{{ request()->get('area') }}">
                 </div>
-
+        
                 <!-- Bộ lọc theo giá -->
                 <div class="col-md-3">
                     <label for="price" class="form-label"><b>Giá (tối đa)</b></label>
-                    <input type="number" name="price" id="price" class="form-control" placeholder="Nhập giá tối đa">
+                    <input type="number" name="price" id="price" class="form-control" placeholder="Nhập giá tối đa" value="{{ request()->get('price') }}">
                 </div>
-
+        
                 <!-- Bộ lọc theo tình trạng -->
                 <div class="col-md-3">
                     <label for="status" class="form-label"><b>Tình trạng</b></label>
                     <select name="status" id="status" class="form-select">
                         <option value="">Tất cả</option>
-                        <option value="available">Còn trống</option>
-                        <option value="occupied">Đã thuê</option>
+                        <option value="0" {{ request()->get('status') == 0 ? 'selected' : '' }}>Đã thuê</option>
+                        <option value="1" {{ request()->get('status') == 1 ? 'selected' : '' }}>Còn trống</option>
+                        <option value="2" {{ request()->get('status') == 2 ? 'selected' : '' }}>Sửa chữa</option>
                     </select>
                 </div>
-
+        
                 <!-- Nút tìm kiếm -->
                 <div class="col-md-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary w-100">Lọc</button>
                 </div>
             </div>
         </form>
+        
     </div>
 </div>
 
@@ -209,275 +227,55 @@
 
     <!-- Hiển thị các phòng -->
     <div class="row">
-        <!-- Phòng 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                 
-                <div class="card-body">
-                    <h5 class="card-title">Phòng 101</h5>
-                    <p class="card-text">
-                        <strong>Diện tích:</strong> 52(m²)<br>
-                        <strong>Giá:</strong> 5.000.000 VND<br>
-                        <strong>Tình trạng:</strong> Còn trống
-                    </p>
-                    <div class="action-buttons d-flex justify-content-around mt-5 ">
-                        <button class="btn btn-info w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
-                            onclick="">
-                            Xem
-                        </button>
-                        <button onclick="window.location.href='{{route('admin.phong.edit', 1)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
-                        <button class="btn btn-danger w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#DeleteModal" 
-                            onclick="">
-                            Xóa
-                        </button>
+        @foreach ($phongs as $phong)
+            <div class="col-md-4 mb-4">
+                <div class="card" style="
+                    background-image: url('{{asset('Images/'.$phong->anhDD)}}'); 
+                    background-size: cover; 
+                    background-position: center;">
+                    <div class="card-body">
+                        <h5 class="card-title text-white">{{$phong->tenPhong}}</h5>
+                        <p class="card-text">
+                            <strong>Diện tích:</strong> {{$phong->dienTich}}(m²)<br>
+                            <strong>Giá:</strong> {{$phong->giaPhong}} VND<br>
+                            <strong>Tình trạng:</strong>
+                            @if ($phong->trangThai == 0)
+                                Đã thuê
+                            @elseif ($phong->trangThai == 1)
+                                Còn trống
+                            @elseif ($phong->trangThai == 2)
+                                Sửa chữa
+                            @else
+                                Không xác định
+                            @endif
+                        </p>
+                        <div class="action-buttons d-flex justify-content-around mt-5 ">
+                            <button class="btn btn-info w-100 mb-2" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#detailModal" 
+                                onclick="getRoomDetails(this)" 
+                                data-id="{{ $phong->maPhong }}">
+                                Xem
+                            </button>
+                            <button onclick="window.location.href='{{route('admin.phong.edit', $phong->maPhong)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
+                            <button class="btn btn-danger w-100 mb-2" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#DeleteModal" 
+                                onclick="setDeleteFormAction({{ $phong->maPhong }})"> 
+                                Xóa
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Phòng 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                 
-                <div class="card-body">
-                    <h5 class="card-title">Phòng 101</h5>
-                    <p class="card-text">
-                        <strong>Diện tích:</strong> 52(m²)<br>
-                        <strong>Giá:</strong> 5.000.000 VND<br>
-                        <strong>Tình trạng:</strong> Còn trống
-                    </p>
-                    <div class="action-buttons d-flex justify-content-around mt-5 ">
-                        <button class="btn btn-info w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
-                            onclick="">
-                            Xem
-                        </button>
-                        <button onclick="window.location.href='{{route('admin.phong.edit', 1)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
-                        <button class="btn btn-danger w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#DeleteModal" 
-                            onclick="">
-                            Xóa
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Phòng 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                 
-                <div class="card-body">
-                    <h5 class="card-title">Phòng 101</h5>
-                    <p class="card-text">
-                        <strong>Diện tích:</strong> 52(m²)<br>
-                        <strong>Giá:</strong> 5.000.000 VND<br>
-                        <strong>Tình trạng:</strong> Còn trống
-                    </p>
-                    <div class="action-buttons d-flex justify-content-around mt-5 ">
-                        <button class="btn btn-info w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
-                            onclick="">
-                            Xem
-                        </button>
-                        <button onclick="window.location.href='{{route('admin.phong.edit', 1)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
-                        <button class="btn btn-danger w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#DeleteModal" 
-                            onclick="">
-                            Xóa
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Phòng 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                 
-                <div class="card-body">
-                    <h5 class="card-title">Phòng 101</h5>
-                    <p class="card-text">
-                        <strong>Diện tích:</strong> 52(m²)<br>
-                        <strong>Giá:</strong> 5.000.000 VND<br>
-                        <strong>Tình trạng:</strong> Còn trống
-                    </p>
-                    <div class="action-buttons d-flex justify-content-around mt-5 ">
-                        <button class="btn btn-info w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
-                            onclick="">
-                            Xem
-                        </button>
-                        <button onclick="window.location.href='{{route('admin.phong.edit', 1)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
-                        <button class="btn btn-danger w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#DeleteModal" 
-                            onclick="">
-                            Xóa
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Phòng 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                 
-                <div class="card-body">
-                    <h5 class="card-title">Phòng 101</h5>
-                    <p class="card-text">
-                        <strong>Diện tích:</strong> 52(m²)<br>
-                        <strong>Giá:</strong> 5.000.000 VND<br>
-                        <strong>Tình trạng:</strong> Còn trống
-                    </p>
-                    <div class="action-buttons d-flex justify-content-around mt-5 ">
-                        <button class="btn btn-info w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
-                            onclick="">
-                            Xem
-                        </button>
-                        <button onclick="window.location.href='{{route('admin.phong.edit', 1)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
-                        <button class="btn btn-danger w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#DeleteModal" 
-                            onclick="">
-                            Xóa
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Phòng 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                 
-                <div class="card-body">
-                    <h5 class="card-title">Phòng 101</h5>
-                    <p class="card-text">
-                        <strong>Diện tích:</strong> 52(m²)<br>
-                        <strong>Giá:</strong> 5.000.000 VND<br>
-                        <strong>Tình trạng:</strong> Còn trống
-                    </p>
-                    <div class="action-buttons d-flex justify-content-around mt-5 ">
-                        <button class="btn btn-info w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
-                            onclick="">
-                            Xem
-                        </button>
-                        <button onclick="window.location.href='{{route('admin.phong.edit', 1)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
-                        <button class="btn btn-danger w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#DeleteModal" 
-                            onclick="">
-                            Xóa
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Phòng 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                 
-                <div class="card-body">
-                    <h5 class="card-title">Phòng 101</h5>
-                    <p class="card-text">
-                        <strong>Diện tích:</strong> 52(m²)<br>
-                        <strong>Giá:</strong> 5.000.000 VND<br>
-                        <strong>Tình trạng:</strong> Còn trống
-                    </p>
-                    <div class="action-buttons d-flex justify-content-around mt-5 ">
-                        <button class="btn btn-info w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
-                            onclick="">
-                            Xem
-                        </button>
-                        <button onclick="window.location.href='{{route('admin.phong.edit', 1)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
-                        <button class="btn btn-danger w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#DeleteModal" 
-                            onclick="">
-                            Xóa
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Phòng 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                 
-                <div class="card-body">
-                    <h5 class="card-title">Phòng 101</h5>
-                    <p class="card-text">
-                        <strong>Diện tích:</strong> 52(m²)<br>
-                        <strong>Giá:</strong> 5.000.000 VND<br>
-                        <strong>Tình trạng:</strong> Còn trống
-                    </p>
-                    <div class="action-buttons d-flex justify-content-around mt-5 ">
-                        <button class="btn btn-info w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
-                            onclick="">
-                            Xem
-                        </button>
-                        <button onclick="window.location.href='{{route('admin.phong.edit', 1)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
-                        <button class="btn btn-danger w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#DeleteModal" 
-                            onclick="">
-                            Xóa
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Phòng 1 -->
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                 
-                <div class="card-body">
-                    <h5 class="card-title">Phòng 101</h5>
-                    <p class="card-text">
-                        <strong>Diện tích:</strong> 52(m²)<br>
-                        <strong>Giá:</strong> 5.000.000 VND<br>
-                        <strong>Tình trạng:</strong> Còn trống
-                    </p>
-                    <div class="action-buttons d-flex justify-content-around mt-5 ">
-                        <button class="btn btn-info w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
-                            onclick="">
-                            Xem
-                        </button>
-                        <button onclick="window.location.href='{{route('admin.phong.edit', 1)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
-                        <button class="btn btn-danger w-100 mb-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#DeleteModal" 
-                            onclick="">
-                            Xóa
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
 
 </div>
 <!-- Phân trang -->
-<div class="pagination-wrapper">
-    <div class="pagination-buttons" id="pagination">
-        <button class="prev-btn btn-info" onclick="changePage(-1)">← Previous</button>
-        <span id="page-number">Page 1</span>
-        <button class="next-btn" onclick="changePage(1)">Next →</button>
+@if ($phongs->total() > 6)
+    <div class="pagination-wrapper">
+        {{ $phongs->links('pagination::bootstrap-4') }}
     </div>
-</div>
+@endif
+
 @endsection

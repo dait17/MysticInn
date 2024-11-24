@@ -12,23 +12,24 @@
     <div class="card shadow-sm">
         <h2 class="text-center mb-4 mt-4">Thêm Nội Thất</h2>
         <div class="card-body">
-            <form>
+            <form action="{{route('admin.noithat.store')}}" method="post" enctype="multipart/form-data">
+                @csrf
                 <!-- Mã Nội Thất -->
                 <div class="mb-3">
-                    <label for="maNoiThat" class="form-label"><b>Mã Nội Thất</b></label>
-                    <input type="text" class="form-control" id="maNoiThat" placeholder="10" readonly>
+                    <label for="maNT" class="form-label"><b>Mã Nội Thất</b></label>
+                    <input type="text" class="form-control" name="maNT" id="maNT" value="{{$newId}}" readonly>
                 </div>
                 
                 <!-- Tên Nội Thất -->
                 <div class="mb-3">
-                    <label for="tenNoiThat" class="form-label"><b>Tên Nội Thất</b></label>
-                    <input type="text" class="form-control" id="tenNoiThat" placeholder="Nhập tên nội thất">
+                    <label for="tenNT" class="form-label"><b>Tên Nội Thất</b></label>
+                    <input type="text" class="form-control" name="tenNT" id="tenNT" placeholder="Nhập tên nội thất">
                 </div>
                 
                 <!-- Giá Nội Thất -->
                 <div class="mb-3">
-                    <label for="giaNoiThat" class="form-label"><b>Giá Nội Thất (VND)</b></label>
-                    <input type="number" class="form-control" id="giaNoiThat" placeholder="Nhập giá nội thất">
+                    <label for="giaNT" class="form-label"><b>Giá Nội Thất (VND)</b></label>
+                    <input type="number" class="form-control" name ="giaNT" id="giaNT" placeholder="Nhập giá nội thất">
                 </div>
                 
                 <!-- Nút Thêm -->
