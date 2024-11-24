@@ -177,8 +177,8 @@ class PhongController extends Controller
 
         if ($phong) {
             // Xóa phòng
-            $phong->delete();
             AnhPhong::where('maPhong', $id)->delete();
+            $phong->delete();
             return redirect()->route('admin.phong.index')->with('success', 'Phòng đã được xóa thành công.');
         }
     }
