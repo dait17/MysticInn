@@ -8,7 +8,6 @@ class HD_KT extends Model
 {
     protected $table = 'hd_kt';
     public $timestamps = false;
-
     protected $fillable = ['maHopDong', 'maKT', 'ngayVao', 'ngayRoiDi'];
 
     function hopdong()
@@ -19,11 +18,5 @@ class HD_KT extends Model
     function khachthue()
     {
         return $this->hasOne(KhachThue::class, 'maKT', 'maKT');
-    }
-
-    protected function setKeysForSaveQuery($query)
-    {
-        return $query->where('maHopDong', $this->getAttribute('maHopDong'))
-            ->where('maKT', $this->getAttribute('maKT'));
     }
 }
