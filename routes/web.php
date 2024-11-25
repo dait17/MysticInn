@@ -28,10 +28,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/phong', [RoomController::class, 'index'])->name('room');
 Route::get('/dangnhap', function (){
-   if (Auth::check()) {
-       return redirect('/');
-   }
-   return view('login');
+    if (Auth::check()) {
+        return redirect('/');
+    }
+    return view('login');
 });
 Route::get('/dangxuat',[LoginController::class,'logout'])->name('logout');
 Route::get('/chitietphong',function (){
@@ -76,8 +76,10 @@ Route::middleware([CheckPermission::class])->group(function () {
         Route::delete('hd_kt/{maHopDong}/{maKT}', [HD_KTController::class, 'destroy'])->name('hd_kt.destroy');
         Route::resources([
             'hopdong'=> HopDongController::class,
-            'chucvu' => ChucVuController::class
+            'chucvu' => ChucVuController::class,
         ]);
+        Route::delete('/phong/{phongId}/delete_anhPhong/{anhPhongId}', [PhongController::class, 'deleteAnhPhong'])->name('admin.phong.deleteAnhPhong');
+
         Route::resource('phong', PhongController::class);
         Route::resource('noithat', NoiThatController::class);
         Route::resource('nhanvien', NhanVienController::class);
@@ -93,5 +95,4 @@ Route::middleware([CheckPermission::class])->group(function () {
 //Route::prefix('/admin')->group(function () {
 //   Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 //})->middleware(CheckPermission::class);
-
 

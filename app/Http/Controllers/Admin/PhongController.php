@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AnhPhong;
 use App\Models\Phong;
 use Illuminate\Http\Request;
 
@@ -78,6 +79,19 @@ class PhongController extends Controller
         }
         $phong->save();
 
+        // Xử lý ảnh chi tiết phòng
+        if ($request->hasFile('anhPhong')) {
+            foreach ($request->file('anhPhong') as $image) {
+                $imageName = $image->getClientOriginalName();
+                $image->move(public_path('admin_assets/img_phong'), $imageName);
+
+                AnhPhong::create([
+                    'maPhong' => $request->maPhong,
+                    'duongDan' => $imageName
+                ]);
+            }
+        }
+
         return redirect()->route('admin.phong.index')->with('success', 'Thêm phòng thành công');
     }
 
@@ -87,16 +101,11 @@ class PhongController extends Controller
     public function show(string $id)
     {
         $phong = Phong::find($id);
+        $anhPhong = AnhPhong::where('maPhong', $id)->get();
+        $take_5_phong = Phong::where('maPhong', '!=', $id)->take(5)->get();
         if ($phong) {
-            return response()->json([
-                'tenPhong' => $phong->tenPhong,
-                'dienTich' => $phong->dienTich,
-                'giaPhong' => $phong->giaPhong,
-                'ghiChu' => $phong->ghiChu,
-                'trangThai' => $phong->trangThai
-            ]);
+            return view('admin.phong.show', compact('phong','anhPhong','take_5_phong'));
         }
-        return response()->json(['message' => 'Không tìm thấy phòng'], 404);
     }
 
     /**
@@ -105,7 +114,8 @@ class PhongController extends Controller
     public function edit(string $id)
     {
         $p = Phong::find($id);
-        return view('Admin.Phong.edit',compact('p'));
+        $anhPhong = AnhPhong::where('maPhong', $id)->get();
+        return view('Admin.Phong.edit',compact('p','anhPhong'));
     }
 
     /**
@@ -142,6 +152,17 @@ class PhongController extends Controller
             }
             $phong->anhDD = $imageName;
         }
+        if ($request->hasFile('anhPhong')) {
+            foreach ($request->file('anhPhong') as $image) {
+                $imageName = $image->getClientOriginalName();
+                $image->move(public_path('admin_assets/img_phong'), $imageName);
+
+                AnhPhong::create([
+                    'maPhong' => $id,
+                    'duongDan' => $imageName
+                ]);
+            }
+        }
         $phong->save();
 
         return redirect()->route('admin.phong.index')->with('success', 'Cập nhật phòng thành công.');
@@ -156,8 +177,25 @@ class PhongController extends Controller
 
         if ($phong) {
             // Xóa phòng
+            AnhPhong::where('maPhong', $id)->delete();
             $phong->delete();
             return redirect()->route('admin.phong.index')->with('success', 'Phòng đã được xóa thành công.');
         }
     }
+
+    // xóa ảnh trong chi tiết phòng
+    public function deleteAnhPhong($phongId, $anhPhongId)
+    {
+        $anh = AnhPhong::where('maPhong', $phongId)->where('maAnh', $anhPhongId)->first();
+        if ($anh) {
+            if (file_exists(public_path('admin_assets/img_phong/' . $anh->duongDan))) {
+                unlink(public_path('admin_assets/img_phong/' . $anh->duongDan));
+            }
+            $anh->delete();
+            return response()->json(['message' => 'Ảnh đã được xóa.']);
+        }
+
+        return response()->json(['message' => 'Không tìm thấy ảnh.'], 404);
+    }
+
 }

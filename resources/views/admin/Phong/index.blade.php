@@ -93,32 +93,6 @@
         filterContent.style.display = "none";
     });
 
-    //xem chi tiêt
-    function getRoomDetails(button) {
-    const roomId = button.getAttribute('data-id');
-
-    // Gửi yêu cầu Ajax đến controller
-    fetch(`/admin/phong/${roomId}`)
-        .then(response => response.json())
-        .then(data => {
-            // Cập nhật thông tin phòng vào modal
-            document.getElementById('roomName').innerText = "phòng" + " " + data.tenPhong;
-            document.getElementById('roomArea').innerText = data.dienTich + " " + "(m²)";
-            document.getElementById('roomPrice').innerText = data.giaPhong + " " + "(VNĐ)";
-            document.getElementById('roomNote').innerText = data.ghiChu;
-            let roomStatus = '';
-            if (data.trangThai === 0) {
-                roomStatus = 'Đã thuê';
-            } else if (data.trangThai === 1) {
-                roomStatus = 'Còn trống';
-            } else if (data.trangThai === 2) {
-                roomStatus = 'Sửa chữa';
-            }
-            document.getElementById('roomStatus').innerText = roomStatus;
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
     // xóa
     function setDeleteFormAction(id) {
         var form = document.getElementById('deleteForm');
@@ -129,28 +103,6 @@
 </script>
 
 <!-- Modal -->
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel">Chi tiết phòng</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Tên phòng:</strong>  <span id="roomName"></span></p>
-                <p><strong>Diện tích:</strong> <span id="roomArea"></span></p>
-                <p><strong>Giá:</strong> <span id="roomPrice"></span></p>
-                <p><strong>Ghi chú:</strong> <span id="roomNote"></span></p>
-                <p><strong>Tình trạng:</strong> <span id="roomStatus"></span></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-  
 <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -174,7 +126,7 @@
     </div>
 </div>
 
-<h2 align = center class="mt-4">Quản Lý Phòng</h2>  
+<h2 align = center class="mt-4">Quản Lý Phòng</h2>
 <div class="container mt-4">
     <!-- Bộ lọc -->
 <div class="mb-4">
@@ -192,13 +144,13 @@
                     <label for="area" class="form-label"><b>Diện tích</b></label>
                     <input type="text" name="area" id="area" class="form-control" placeholder="Nhập Diện tích" value="{{ request()->get('area') }}">
                 </div>
-        
+
                 <!-- Bộ lọc theo giá -->
                 <div class="col-md-3">
                     <label for="price" class="form-label"><b>Giá (tối đa)</b></label>
                     <input type="number" name="price" id="price" class="form-control" placeholder="Nhập giá tối đa" value="{{ request()->get('price') }}">
                 </div>
-        
+
                 <!-- Bộ lọc theo tình trạng -->
                 <div class="col-md-3">
                     <label for="status" class="form-label"><b>Tình trạng</b></label>
@@ -209,14 +161,14 @@
                         <option value="2" {{ request()->get('status') == 2 ? 'selected' : '' }}>Sửa chữa</option>
                     </select>
                 </div>
-        
+
                 <!-- Nút tìm kiếm -->
                 <div class="col-md-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary w-100">Lọc</button>
                 </div>
             </div>
         </form>
-        
+
     </div>
 </div>
 
@@ -230,8 +182,8 @@
         @foreach ($phongs as $phong)
             <div class="col-md-4 mb-4">
                 <div class="card" style="
-                    background-image: url('{{asset('Images/'.$phong->anhDD)}}'); 
-                    background-size: cover; 
+                    background-image: url('{{asset('Images/'.$phong->anhDD)}}');
+                    background-size: cover;
                     background-position: center;">
                     <div class="card-body">
                         <h5 class="card-title text-white">{{$phong->tenPhong}}</h5>
@@ -250,18 +202,12 @@
                             @endif
                         </p>
                         <div class="action-buttons d-flex justify-content-around mt-5 ">
-                            <button class="btn btn-info w-100 mb-2" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#detailModal" 
-                                onclick="getRoomDetails(this)" 
-                                data-id="{{ $phong->maPhong }}">
-                                Xem
-                            </button>
+                            <button onclick="window.location.href='{{route('admin.phong.show', $phong->maPhong)}}';" class="btn btn-info w-100 mb-2"> Xem </button>
                             <button onclick="window.location.href='{{route('admin.phong.edit', $phong->maPhong)}}';" class="btn btn-warning w-100 mb-2" >Sửa</button>
-                            <button class="btn btn-danger w-100 mb-2" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#DeleteModal" 
-                                onclick="setDeleteFormAction({{ $phong->maPhong }})"> 
+                            <button class="btn btn-danger w-100 mb-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#DeleteModal"
+                                onclick="setDeleteFormAction({{ $phong->maPhong }})">
                                 Xóa
                             </button>
                         </div>
