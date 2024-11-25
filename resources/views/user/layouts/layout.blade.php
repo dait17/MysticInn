@@ -54,7 +54,7 @@
             <div class="row align-items-center">
 
                 <div class="col-6 col-xl-2">
-                    <h1 class="mb-0 site-logo m-0 p-0"><a href="index.html" class="mb-0">MysticInn</a></h1>
+                    <h1 class="mb-0 site-logo m-0 p-0"><a href="{{route('home')}}" class="mb-0">MysticInn</a></h1>
                 </div>
 
                 <div class="col-12 col-md-10 d-none d-xl-block">
@@ -139,10 +139,14 @@
 
     </header>
 
+    <div style="min-height: 80px;
+  height: calc(8vh);
+  background: #222; ">
 
-    <div class="site-block-wrap">
-        @yield('ads')
     </div>
+
+        @yield('ads')
+
 
     @yield('content')
 

@@ -7,7 +7,7 @@
         padding: 50px 0;
         display: flex;
         justify-content: center;
-        align-items: center; 
+        align-items: center;
         height: 100%;
     }
 
@@ -54,7 +54,7 @@
         box-shadow: 0px 5px 15px rgba(155, 208, 148, 0.1);
     }
 </style>
-
+<div class="site-block-wrap">
     {{-- quảng cáo --}}
     <section class="banner-ad">
         <div class="container">
@@ -67,7 +67,7 @@
                     </p>
                     <a href="{{route($qc->DUONGDAN)}}" class="btn btn-primary btn-lg">Xem Chi Tiết</a>
                 </div>
-    
+
                 <!-- Hình Ảnh Quảng Cáo -->
                 <div class="col-md-6">
                     <img src="{{ asset('admin_assets/img_qc/' . $qc->ANHQC) }}" alt="Quảng Cáo Phòng" class="img-fluid rounded">
@@ -75,8 +75,10 @@
             </div>
         </div>
     </section>
-    
+
     {{-- end quảng cáo --}}
+</div>
+
 @endsection
 
 @section('title', 'Home Page')
@@ -218,7 +220,7 @@
                         <h5 class="card-title">Phòng: {{$p->tenPhong}}</h5>
                         <p class="card-text">Diện tích: {{$p->dienTich}} mét vuông</p>
                         <p class="card-text">Giá thuê: {{ number_format($p->giaPhong, 0) }} vnđ</p>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                        <a href="{{route('roomdetail', $p->maPhong)}}" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>

@@ -15,7 +15,7 @@
             <div class="bg-light rounded p-4 my-2">
                 <h5 class="text-center">Chi tiết hoá đơn Phòng {{$hoadon->hopdong->phong->tenPhong}} </h5>
                 <div class="d-flex justify-content-end">
-                    Thang {{$hoadon->thang}}/{{$hoadon->nam}}
+                    Tháng {{$hoadon->thang}}/{{$hoadon->nam}}
                 </div>
                 <?php $tong = $hoadon->hopdong->giaThue?>
                 <ul class="list-unstyled">

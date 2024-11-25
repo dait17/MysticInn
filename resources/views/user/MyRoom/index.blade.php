@@ -31,7 +31,7 @@
         </div>
 
         <div class="container p-4">
-            <h5>Hoa Don</h5>
+            <h5>Hoá Đơn</h5>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
