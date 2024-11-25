@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\NhanVien;
 use App\Models\ThongBao;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -34,6 +35,19 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $view->with('thongbaos', $thongbaos);
+        });
+
+        View::composer('admin.layouts.DashboardLayout', function ($view) {
+
+            $nhanvien = null;
+            if (Auth::check()) {
+                $userId = Auth::user()->id;
+                $nhanvien = NhanVien::where('maTK', $userId)->first();
+
+                $thongbaos = ThongBao::where('userId', $userId)->get();
+            }
+
+            $view->with('nhanvien', $nhanvien)->with('thongbaos', $thongbaos);
         });
 
     }
