@@ -35,9 +35,7 @@ Route::get('/dangnhap', function (){
     return view('login');
 });
 Route::get('/dangxuat',[LoginController::class,'logout'])->name('logout');
-Route::get('/chitietphong',function (){
-    return view('user.RoomDetails');
-})->name('roomdetail');
+Route::get('/chitietphong/{maPhong}',[RoomController::class,'Show'])->name('roomdetail');
 //Route::get('/dangnhap', [LoginController::class, 'index'])->name('login');
 Route::post('/dangnhap', [LoginController::class, 'login'])->name('login');
 //Route::get('/phongcuatoi', function () {
