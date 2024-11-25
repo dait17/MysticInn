@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Phong;
-use Illuminate\Http\Request;
+use App\Models\QuangCao;
 
 class HomeController extends Controller
 {
@@ -16,6 +16,13 @@ class HomeController extends Controller
         } else {
             $randomPhongs = $phongs;
         }
-        return view('user.home',compact('randomPhongs'));
+
+
+        // quảng cáo
+        $qc = QuangCao::where(function($query) {
+            $query->whereNull('NGAYGO')
+                  ->orWhere('NGAYGO', '!=', now()->format('Y-m-d'));
+        })->first();
+        return view('user.home',compact('randomPhongs','qc'));
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\KhachThueController;
 use App\Http\Controllers\Admin\NhanVienController;
 use App\Http\Controllers\Admin\NoiThatController;
 use App\Http\Controllers\Admin\PhongController;
+use App\Http\Controllers\Admin\QuangCaoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyRoomController;
 use App\Http\Controllers\User\HomeController;
@@ -74,6 +75,7 @@ Route::middleware([CheckPermission::class])->group(function () {
         Route::resource('nhanvien', NhanVienController::class);
         Route::resource('dichvu', DichVuController::class);
         Route::resource('khachthue', KhachThueController::class);
+        Route::resource('quangcao', QuangCaoController::class);
         Route::get('hoadon/inds', [HoaDonController::class, 'inds'])->name('hoadon.inds');
         Route::resource('hoadon', HoaDonController::class);
     });

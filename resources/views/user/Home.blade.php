@@ -1,5 +1,84 @@
 @extends('user.layouts.layout')
 
+@section('ads')
+<style>
+    .banner-ad {
+        background-color: #222;
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        height: 100%;
+    }
+
+    .banner-ad .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .banner-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #fff;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    .banner-description {
+        font-size: 1.2rem;
+        color: #fff;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    .banner-ad .btn-primary {
+        font-size: 1rem;
+        padding: 12px 25px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 50px;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .banner-ad .btn-primary:hover {
+        background-color: #0056b3;
+        color: #fff;
+    }
+
+    .banner-ad img {
+        max-width: 100%;
+        border-radius: 12px;
+        box-shadow: 0px 5px 15px rgba(155, 208, 148, 0.1);
+    }
+</style>
+
+    {{-- quảng cáo --}}
+    <section class="banner-ad">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Thông tin Quảng Cáo -->
+                <div class="col-md-6">
+                    <h2 class="banner-title">{{$qc->TENQC}}</h2>
+                    <p class="banner-description">
+                        Cần tìm phòng? Xem ngay các lựa chọn phòng trống mới nhất của chúng tôi!
+                    </p>
+                    <a href="{{route($qc->DUONGDAN)}}" class="btn btn-primary btn-lg">Xem Chi Tiết</a>
+                </div>
+    
+                <!-- Hình Ảnh Quảng Cáo -->
+                <div class="col-md-6">
+                    <img src="{{ asset('admin_assets/img_qc/' . $qc->ANHQC) }}" alt="Quảng Cáo Phòng" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    {{-- end quảng cáo --}}
+@endsection
+
 @section('title', 'Home Page')
 
 @section('content')
