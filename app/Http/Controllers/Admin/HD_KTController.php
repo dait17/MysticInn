@@ -7,6 +7,7 @@ use App\Models\HD_KT;
 use App\Models\HopDong;
 use App\Models\KhachThue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HD_KTController extends Controller
 {
@@ -78,12 +79,13 @@ class HD_KTController extends Controller
     public function update(Request $request)
     {
         $data = $request->all();
-        $hd_kt = HD_KT::where('maHopDong', $data['maHopDong'])->where('maKT', $data['maKT'])->first();
-        if ($hd_kt) {
-            $hd_kt->ngayVao = $data['ngayVao'];
-            $hd_kt->ngayRoiDi = $data['ngayRoiDi'];
-            $hd_kt->save();
-        }
+        DB::table('hd_kt')
+            ->where('maHopDong', $data['maHopDong'])
+            ->where('maKT', $data['maKT'])
+            ->update([
+                'ngayVao' => $data['ngayVao'],
+                'ngayRoiDi' => $data['ngayRoiDi']
+            ]);
 
         return redirect()->route('admin.hd_kt.index', $data['maHopDong']);
     }
