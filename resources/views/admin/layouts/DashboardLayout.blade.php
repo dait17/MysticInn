@@ -67,9 +67,8 @@
                 <a href="{{route('admin.noithat.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Nội thất</a>
                 <a href="{{route('admin.nhanvien.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Nhân Viên</a>
                 <a href="{{route('admin.dichvu.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Dịch vụ</a>
-                <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-                <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                <a href="{{route('admin.chucvu.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Chức vụ</a>
+
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                     <div class="dropdown-menu bg-transparent border-0">
