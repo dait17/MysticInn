@@ -63,11 +63,43 @@
                         <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                             <li><a href="{{route('home')}}" class="nav-link">Trang Chủ</a></li>
                             <li><a href="{{ route('room') }}" class="nav-link">Phòng</a></li>
-                            @if(!Auth::check() or (Auth::check() and Auth::user()->userType==2))
+                            @if(Auth::check() and Auth::user()->userType==2)
                                 <li><a href="{{ route('myroom') }}" class="nav-link">Phòng Của Tôi</a></li>
-                            @else
+                                <li class="nav-link">
+                                    <div class="navbar-nav align-items-center ms-auto">
+                                        <div class="nav-item dropdown">
+                                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                                <i class="fa fa-bell me-lg-2"></i>
+                                                <span class="d-none d-lg-inline-flex">Notificatin</span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end bg-dark border-0 rounded-0 rounded-bottom m-0">
+                                                @foreach($thongbaos as $tb)
+                                                    <a href="{{$tb->duongDan}}" class="dropdown-item">
+                                                        <h6 class="fw-normal mb-0">{{$tb->tieuDe}}</h6>
+                                                            <small>{{$tb->ngayTao}}</small>
+                                                    </a>
+                                                    <hr class="dropdown-divider">
+                                                @endforeach
+
+{{--                                                <a href="#" class="dropdown-item">--}}
+{{--                                                    <h6 class="fw-normal mb-0">New user added</h6>--}}
+{{--                                                    <small>15 minutes ago</small>--}}
+{{--                                                </a>--}}
+{{--                                                <hr class="dropdown-divider">--}}
+{{--                                                <a href="#" class="dropdown-item">--}}
+{{--                                                    <h6 class="fw-normal mb-0">Password changed</h6>--}}
+{{--                                                    <small>15 minutes ago</small>--}}
+{{--                                                </a>--}}
+{{--                                                <hr class="dropdown-divider">--}}
+{{--                                                <a href="#" class="dropdown-item text-center">See all notifications</a>--}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            @elseif(Auth::check() and Auth::user()->userType==1)
                                 <li><a href="{{route('admin.dashboard')}}" class="nav-link">Dashboard</a></li>
 
+                            @else
                             @endif
                             @if(Auth::check())
                                 <li style="margin: 0 60px;">

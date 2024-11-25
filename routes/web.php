@@ -10,11 +10,12 @@ use App\Http\Controllers\Admin\NhanVienController;
 use App\Http\Controllers\Admin\NoiThatController;
 use App\Http\Controllers\Admin\PhongController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\MyRoomController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\InfoController;
+use App\Http\Controllers\User\MyRoomController;
 use App\Http\Controllers\User\RoomController;
 use App\Http\Middleware\CheckPermission;
+use App\Http\Middleware\CheckUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -37,11 +38,17 @@ Route::get('/chitietphong',function (){
 })->name('roomdetail');
 //Route::get('/dangnhap', [LoginController::class, 'index'])->name('login');
 Route::post('/dangnhap', [LoginController::class, 'login'])->name('login');
-Route::get('/phongcuatoi', function () {
-    if (!Auth::check()) {
-        return redirect('/dangnhap');
-    }
-    return view('user.myroom');
+//Route::get('/phongcuatoi', function () {
+//    if (!Auth::check()) {
+//        return redirect('/dangnhap');
+//    }
+//    return view('user.myroom');
+//});
+Route::middleware([CheckUser::class])->group(function (){
+    Route::get('/phongcuatoi',[MyRoomController::class, 'index'])->name('user.phongcuatoi');
+    Route::get('/phongcuatoi/chitiethoadon/{maHoaDon}',[MyRoomController::class, 'show'])->name('user.chitiethoadon');
+    Route::get('/phongcuatoi/thanhtoan/{maHoaDon}',[MyRoomController::class, 'thanhToan'])->name('user.thanhtoan');
+
 });
 Route::post('/phongcuatoi', [MyRoomController::class, 'index'])->name('myroom');
 

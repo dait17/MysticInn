@@ -9,6 +9,7 @@ use App\Models\HopDong;
 use App\Models\Phong;
 use App\Models\SDDichVu;
 use App\Models\ThanhToan_DV;
+use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -100,7 +101,7 @@ class HoaDonController extends Controller
 
         // Thực hiện truy vấn và lấy kết quả
         $hoaDons = $query->get();
-        $phongs = Phong::where('trangThai', 1)->get();
+        $phongs = HopDong::whereNull('ngayKetThuc')->get();
 
         return view('admin.HoaDon.index', compact('hoaDons', 'phongs'));
     }
@@ -183,7 +184,20 @@ class HoaDonController extends Controller
             ThanhToan_DV::create($tt_data);
 
         }
+        $thongbao = [
+
+        ];
+        $this->guiHoaDon($hoadon);
         return redirect()->route('admin.hoadon.index');
+    }
+
+    private function guiHoaDon($hoadon)
+    {
+        $tieude = "Thông báo hoá đơn tháng $hoadon->thang/$hoadon->nam";
+        $noidung = "";
+        $duongDan = route('user.phongcuatoi');
+        ThongBaoController::guiThongBao($tieude, $noidung, $hoadon->hopdong->userId, $duongDan);
+
     }
 
     public function layThangCT_HoaDon($maPhong)

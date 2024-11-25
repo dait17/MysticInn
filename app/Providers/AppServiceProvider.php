@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\ThongBao;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('user.layouts.layout', function ($view) {
+            $thongbaos = [];
+
+            if (Auth::check()) {
+                $userId = Auth::user()->id;
+                $thongbaos = ThongBao::where('userId', $userId)
+                    ->orderBy('ngayTao', 'desc') // Sắp xếp theo ngày tạo, giảm dần
+                    ->take(5)                      // Giới hạn 5 bản ghi
+                    ->get();
+            }
+
+            $view->with('thongbaos', $thongbaos);
+        });
+
     }
 }

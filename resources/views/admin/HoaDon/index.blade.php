@@ -259,7 +259,7 @@
                                     <select id="selectRoom" name="maPhong" class="form-select" aria-label="Chọn phòng">
                                         <option value="" selected>---Chọn phòng---</option>
                                         @foreach($phongs as $phong)
-                                            <option value="{{$phong->maPhong}}">Phòng {{$phong->tenPhong}}</option>
+                                            <option value="{{$phong->phong->maPhong}}">Phòng {{$phong->phong->tenPhong}}</option>
                                         @endforeach
                                         <!-- Thêm các phòng khác -->
                                     </select>
