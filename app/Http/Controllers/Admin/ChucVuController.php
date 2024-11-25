@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ChucVu;
 use Illuminate\Http\Request;
 
 class ChucVuController extends Controller
@@ -10,10 +11,10 @@ class ChucVuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        return view('admin.ChucVu.index');
+        $chucVus = ChucVu::all();
+        return view('admin.chucvu.index',compact('chucVus'));
     }
 
     /**
@@ -21,7 +22,9 @@ class ChucVuController extends Controller
      */
     public function create()
     {
-        //
+        $lastcv = ChucVu::latest('MACV')->first();
+        $newidcv = $lastcv ? $lastcv->MACV + 1 : 1;
+        return view('admin.chucvu.create',compact('newidcv'));
     }
 
     /**
@@ -29,7 +32,15 @@ class ChucVuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newCV = new ChucVu();
+
+        $newCV->MACV = $request->MACV;
+        $newCV->TENCV = $request->TENCV;
+        $newCV->HSL = $request->HSL;
+
+        $newCV->save();
+
+        return redirect()->route('admin.chucvu.index');
     }
 
     /**
@@ -45,7 +56,8 @@ class ChucVuController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $chucvu = ChucVu::find($id);
+        return view('admin.chucvu.edit', compact('chucvu'));
     }
 
     /**
@@ -53,7 +65,18 @@ class ChucVuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $CV = ChucVu::find($id);
+
+        if($CV){
+            
+            $CV->MACV = $request->MACV;
+            $CV->TENCV = $request->TENCV;
+            $CV->HSL = $request->HSL;
+            
+            $CV->save();
+        }
+
+        return redirect()->route('admin.chucvu.index');
     }
 
     /**
@@ -61,6 +84,7 @@ class ChucVuController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        ChucVu::find($id)->delete();
+        return redirect()->route('admin.chucvu.index');
     }
 }
