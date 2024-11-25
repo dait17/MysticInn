@@ -5,7 +5,8 @@
     <div class="container-fluid p-4 mt-4">
         <div>
             <button class="btn btn-dark" onclick="window.location.href='{{route('admin.hoadon.index')}}'">
-                back
+                <i class="bi bi-arrow-left"></i>
+                Quay lại
             </button>
         </div>
         <div class="d-flex justify-content-center">
@@ -61,7 +62,16 @@
                     </table>
                 </div>
                 <div class="d-flex justify-content-end mt-4">
-                    <h6><strong>Tổng cộng:</strong> {{number_format($tong, '0', '.', ',')}}</h6>
+                    <div class="mt-2">
+                        <h6><strong>Tổng cộng:</strong> {{number_format($tong, '0', '.', ',')}}</h6>
+
+                        @if($hoadon->trangThai)
+                            <div class="p-2 mt-2">
+                                <i class="bi bi-check-circle" style="color: green"></i>
+                                Đã thanh toán
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

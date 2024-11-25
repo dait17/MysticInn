@@ -59,25 +59,44 @@
                 </div>
             </div>
             <div class="navbar-nav w-100">
-                <a href="{{route('admin.dashboard')}}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="{{route('admin.hoadon.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Hoá Đơn</a>
-                <a href="{{route('admin.hopdong.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Hợp đông</a>
-                <a href="{{route('admin.khachthue.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Khách Thuê</a>
-                <a href="{{route('admin.phong.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Phòng</a>
-                <a href="{{route('admin.noithat.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Nội thất</a>
-                <a href="{{route('admin.nhanvien.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Nhân Viên</a>
-                <a href="{{route('admin.dichvu.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Dịch vụ</a>
-                <a href="{{route('admin.quangcao.index')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Quảng cáo</a>
+                <a href="{{ route('admin.dashboard') }}"
+                   class="nav-item nav-link {{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
+                    <i class="fa fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+                <a href="{{ route('admin.hoadon.index') }}"
+                   class="nav-item nav-link {{ Request::routeIs('admin.hoadon.index') ? 'active' : '' }}">
+                    <i class="fa fa-th me-2"></i>Hoá Đơn
+                </a>
+                <a href="{{ route('admin.hopdong.index') }}"
+                   class="nav-item nav-link {{ Request::routeIs('admin.hopdong.index') ? 'active' : '' }}">
+                    <i class="fa fa-th me-2"></i>Hợp đồng
+                </a>
+                <a href="{{ route('admin.khachthue.index') }}"
+                   class="nav-item nav-link {{ Request::routeIs('admin.khachthue.index') ? 'active' : '' }}">
+                    <i class="fa fa-th me-2"></i>Khách Thuê
+                </a>
+                <a href="{{ route('admin.phong.index') }}"
+                   class="nav-item nav-link {{ Request::routeIs('admin.phong.index') ? 'active' : '' }}">
+                    <i class="fa fa-th me-2"></i>Phòng
+                </a>
+                <a href="{{ route('admin.noithat.index') }}"
+                   class="nav-item nav-link {{ Request::routeIs('admin.noithat.index') ? 'active' : '' }}">
+                    <i class="fa fa-th me-2"></i>Nội thất
+                </a>
+                <a href="{{ route('admin.nhanvien.index') }}"
+                   class="nav-item nav-link {{ Request::routeIs('admin.nhanvien.index') ? 'active' : '' }}">
+                    <i class="fa fa-th me-2"></i>Nhân Viên
+                </a>
+                <a href="{{ route('admin.dichvu.index') }}"
+                   class="nav-item nav-link {{ Request::routeIs('admin.dichvu.index') ? 'active' : '' }}">
+                    <i class="fa fa-th me-2"></i>Dịch vụ
+                </a>
+                <a href="{{ route('admin.quangcao.index') }}"
+                   class="nav-item nav-link {{ Request::routeIs('admin.quangcao.index') ? 'active' : '' }}">
+                    <i class="fa fa-th me-2"></i>Quảng cáo
+                </a>
 
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="signin.html" class="dropdown-item">Sign In</a>
-                        <a href="signup.html" class="dropdown-item">Sign Up</a>
-                        <a href="404.html" class="dropdown-item">404 Error</a>
-                        <a href="blank.html" class="dropdown-item">Blank Page</a>
-                    </div>
-                </div>
+
             </div>
         </nav>
     </div>
@@ -98,45 +117,6 @@
                 <input class="form-control border-0" type="search" placeholder="Search">
             </form>
             <div class="navbar-nav align-items-center ms-auto">
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <i class="fa fa-envelope me-lg-2"></i>
-                        <span class="d-none d-lg-inline-flex">Message</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="#" class="dropdown-item">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="ms-2">
-                                    <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                    <small>15 minutes ago</small>
-                                </div>
-                            </div>
-                        </a>
-                        <hr class="dropdown-divider">
-                        <a href="#" class="dropdown-item">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="ms-2">
-                                    <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                    <small>15 minutes ago</small>
-                                </div>
-                            </div>
-                        </a>
-                        <hr class="dropdown-divider">
-                        <a href="#" class="dropdown-item">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="ms-2">
-                                    <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                    <small>15 minutes ago</small>
-                                </div>
-                            </div>
-                        </a>
-                        <hr class="dropdown-divider">
-                        <a href="#" class="dropdown-item text-center">See all message</a>
-                    </div>
-                </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                         <i class="fa fa-bell me-lg-2"></i>

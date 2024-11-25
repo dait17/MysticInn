@@ -6,7 +6,7 @@
         <div class="d-flex flex-column justify-content-between h-75">
             <div class="row g-4">
                 <div class="col-sm-12 col-xl-12 ">
-                    <h4 class="">Hợp Đồng</h4>
+                    <h3 class="text-center">Hợp Đồng</h3>
 
                     <div class="d-flex justify-content-end">
                         <button onclick="window.location.href='{{ route('admin.hopdong.create') }}';" type="button"
@@ -19,22 +19,22 @@
                         <div class="container py-4 rounded bg-light">
                             <div class="row g-4">
                                 <div class="col-sm-12 col-xl-2">
-                                    <input class="form-control" type="text" name="i_maHopDong" placeholder="Ma Hop Dong"
-                                           title="Ma Hop Dong">
+                                    <input class="form-control" type="text" name="i_maHopDong" placeholder="Mã hợp đồng"
+                                           title="Mã hợp đồng">
                                 </div>
                                 <div class="col-sm-12 col-xl-2">
-                                    <input class="form-control" type="text" name="i_tenPhong" placeholder="Ma Phong"
-                                           title="Ma Phong">
+                                    <input class="form-control" type="text" name="i_tenPhong" placeholder="Tên phòng"
+                                           title="Tên phòng">
                                 </div>
                                 <div class="col-sm-12 col-xl-3">
-                                    <input class="form-control" type="datetime-local" name="i_ngayKy"
-                                           placeholder="Ngay Ky" title="Ngay Ky">
+                                    <input class="form-control" type="date" name="i_ngayKy"
+                                           placeholder="Ngày ký" title="Ngày ký">
                                 </div>
 
                                 <div class="col-sm-12 col-xl-3">
                                     <div class="input-group">
-                                        <input class="form-control" type="text" name="i_giaThue" placeholder="Gia Thue"
-                                               title="Gia Thue">
+                                        <input class="form-control" type="text" name="i_giaThue" placeholder="Giá thuê"
+                                               title="Giá thuê">
                                         <span class="input-group-text">Vnđ</span>
                                     </div>
                                 </div>
@@ -55,11 +55,11 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Mã hợp đồng</th>
-                                    <th scope="col">Mã phòng</th>
+                                    <th scope="col">Tên phòng</th>
                                     <th scope="col">Ngày ký</th>
                                     <th scope="col">Ngày hết hạn</th>
-                                    <th scope="col">Giá Thuê</th>
-                                    <th>Action</th>
+                                    <th scope="col">Ngày trả phòng</th>
+                                    <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -69,10 +69,10 @@
 
                                         <th scope="row">{{$i++}}</th>
                                         <td>{{$hopdong->maHopDong}}</td>
-                                        <td>{{$hopdong->maPhong}}</td>
+                                        <td>{{$hopdong->phong->tenPhong}}</td>
                                         <td>{{$hopdong->ngayKy}}</td>
-                                        <td>{{!$hopdong->ngayHH?'Không thời hạn':$hopdong->ngayHH}}</td>
-                                        <td>{{number_format($hopdong->giaThue, '0', '.', ',')}}</td>
+                                        <td>{{!$hopdong->ngayHetHan?'Không thời hạn':$hopdong->ngayHetHan}}</td>
+                                        <td>{{$hopdong->ngayKetThuc??'Còn cư trú'}}</td>
                                         <td>
                                             <button class="btn btn-primary btn-sm"
                                                     onclick="window.location.href='{{route('admin.hopdong.show', $hopdong->maHopDong)}}'">

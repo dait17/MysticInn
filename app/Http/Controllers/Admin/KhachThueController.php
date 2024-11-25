@@ -10,6 +10,8 @@ class KhachThueController extends Controller
 {
     public function index(Request $request)
     {
+        session(['previous_url' => url()->current()]);
+
         // Lấy các trường tìm kiếm từ request
         $maKT = $request->get('maKT');
         $hoKT = $request->get('hoKT');
@@ -92,6 +94,7 @@ class KhachThueController extends Controller
 
     public function store(Request $request)
     {
+
         $newKT = new KhachThue();
 
         $newKT->maKT = $request->maKT;
@@ -138,7 +141,9 @@ class KhachThueController extends Controller
 
         $newKT->save();
 
-        return redirect()->route('admin.khachthue.index');
+        $previousUrl = session('previous_url');
+        return redirect()->to($previousUrl)->with('maKT', $newKT->maKT);
+//        return redirect()->route('admin.khachthue.index');
     }
 
     public function show(string $id)
@@ -194,7 +199,7 @@ class KhachThueController extends Controller
                 'gioiTinh.in' => 'Giới tính không hợp lệ.',
                 // Thêm các thông báo lỗi tùy chỉnh khác nếu cần
             ]);
-            
+
             $KT->save();
         }
 

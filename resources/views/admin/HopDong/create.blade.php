@@ -9,7 +9,14 @@
     </style>
     <!-- Table Start -->
     <div class="container-fluid pt-4 px-4 pb-4 mb-2">
-        <h4 class="mb-4">Thêm Hợp Đồng</h4>
+        <h4 class="mb-4 text-center">Thêm Hợp Đồng</h4>
+        <div class="py-4 mb-4">
+            <button type="button" class="btn btn-dark"
+                    onclick="window.location.href='{{route('admin.hopdong.index')}}'">
+                <i class="bi bi-arrow-left"></i>
+                Quay lại
+            </button>
+        </div>
         <form action="{{ route('admin.hopdong.store') }}" method="post" name="taoHopDong" id="taoHopDong">
             @csrf
             <div class="row g-4 mb-4">
@@ -52,7 +59,7 @@
             <div class="row g-4 mb-4">
                 <div class="col-sm-6 col-xl-4">
                     <div class="form-floating">
-                        <input type="datetime-local" class="form-control" name="ngayKy" id="ngayKy"
+                        <input type="date" class="form-control" name="ngayKy" id="ngayKy"
                                aria-describedby="ngayKy">
                         <small class="error-message text-danger" style="display: none;">* Vui lòng nhập ngày ký</small>
                         <label for="ngayKy">Ngày Ký <span>*</span></label>
@@ -60,7 +67,7 @@
                 </div>
                 <div class="col-sm-6 col-xl-4">
                     <div class="form-floating">
-                        <input type="datetime-local" class="form-control" name="ngayHH" id="ngayHH"
+                        <input type="date" class="form-control" name="ngayHetHan" id="ngayHH"
                                aria-describedby="ngayHH">
                         <small class="error-message text-danger" style="display: none;"></small>
                         <label for="ngayHH">Ngày Hết Hạn <span>*</span></label>
@@ -74,7 +81,8 @@
                                 aria-label="Chọn khách thuê">
                             <option value="-1" selected>Chọn khách thuê</option>
                             @foreach($khachThues as $kt)
-                                <option value="{{$kt->maKT}}">{{$kt->hoKT . ' ' . $kt->tenKT . ' - '. $kt->SDT}}</option>
+                                <option
+                                    value="{{$kt->maKT}}" {{($maKT&&$maKT==$kt->maKT?'selected':'')}}>{{$kt->hoKT . ' ' . $kt->tenKT . ' - '. $kt->SDT}} </option>
                             @endforeach
                         </select>
                         <small class="error-message text-danger" style="display: none;">* Vui lòng chọn khách
@@ -84,7 +92,9 @@
                 </div>
                 <div class="col-sm-4 col-xl-4 d-flex align-items-center">
                     <button title="Thêm Khách Mới" type="button"
-                            class="btn btn-lg btn-lg-square btn-primary m-2"><i class="fa fa-user-plus"></i>
+                            class="btn btn-lg btn-lg-square btn-primary m-2"
+                            onclick="window.location.href='{{route('admin.khachthue.create')}}'">
+                        <i class="fa fa-user-plus"></i>
                     </button>
                 </div>
             </div>
@@ -134,8 +144,6 @@
             </div>
 
 
-
-
             <!-- Nút thực hiện -->
             <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-lg">Thực Hiện</button>
@@ -176,7 +184,7 @@
 
     </script>
 
-{{--      Xac thuc du lieu  --}}
+    {{--      Xac thuc du lieu  --}}
     <script>
         document.getElementById("taoHopDong").addEventListener("submit", function (e) {
             e.preventDefault(); // Ngăn chặn hành vi gửi form mặc định
@@ -275,12 +283,11 @@
         const ngayKy = document.getElementById("ngayKy");
         const now = new Date();
 
-        // Chuyển ngày hiện tại sang định dạng YYYY-MM-DDTHH:MM
-        const formattedDate = now.toISOString().slice(0, 16);
+        // Chuyển ngày hiện tại sang định dạng YYYY-MM-DD (chỉ cần ngày, không có giờ)
+        const formattedDate = now.toISOString().slice(0, 10); // Chỉ lấy phần YYYY-MM-DD
 
-        // Gán giá trị mặc định
+        // Gán giá trị mặc định cho input type="date"
         ngayKy.value = formattedDate;
-
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

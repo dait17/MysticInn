@@ -17,11 +17,11 @@ class SDDichVu extends Model
 
     public function hoadon()
     {
-        return $this->hasOne('HoaDon', 'maHoaDon', 'maHoaDon');
+        return $this->belongsTo('HoaDon', 'maHoaDon', 'maHoaDon');
     }
 
     public function dangkydv()
     {
-        return $this->hasOne('dangkydv', 'maDKDV', 'maDKDV');
+        return $this->belongsTo('dangkydv', 'maDKDV', 'maDKDV');
     }
 }

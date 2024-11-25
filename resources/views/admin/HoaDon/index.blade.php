@@ -316,8 +316,8 @@
                 </div>
             </div>
 
-            <a href="{{ route('admin.hoadon.inds') }}" type="button" class="btn btn-outline-dark  mr-2">In danh
-                sách</a>
+{{--            <a href="{{ route('admin.hoadon.inds') }}" type="button" class="btn btn-outline-dark  mr-2">In danh--}}
+{{--                sách</a>--}}
         </div>
 
         <!-- Bảng dữ liệu -->
@@ -346,11 +346,14 @@
                             Đã thanh toán
                         @endif
                     </td>
-                    <td><a href="{{route('admin.hoadon.edit', $hd->maHoaDon)}}">
+                    <td>
+                        <a href="{{route('admin.hoadon.edit', $hd->maHoaDon)}}" class="px-2 mx-2">
                             <i class="fa-solid fa-pencil"></i>
-                        </a>&nbsp;|&nbsp;<a
-                            href="{{route('admin.hoadon.show', $hd->maHoaDon)}}"><i
-                                class="fa-solid fa-up-right-and-down-left-from-center"></i></a>&nbsp;|&nbsp;
+                        </a>
+                        <a href="{{route('admin.hoadon.show', $hd->maHoaDon)}}" class="px-2 ml-2 mx-2">
+                            <i
+                                class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                        </a>
                         <i data-bs-toggle="modal" data-bs-target="#XoaHD" class="fa-solid fa-delete-left"></i></td>
                     <!-- Xem chi tiết hóa đơn -->
                     <div class="modal fade" id="XemChiTietHD_{{$hd->maHoaDon}}" tabindex="-1"
@@ -450,7 +453,12 @@
                                             Phong {{$hd->hopdong->phong->tenPhong}}" ???
                                         </div>
                                         <div class="modal-footer">
-                                            <button onclick="window.location.href='{{route('admin.hoadon.destroy', $hd->maHoaDon)}}'" type="button" class="btn btn-primary">Thực Hiện</button>
+                                            <form action="{{route('admin.hoadon.destroy', $hd->maHoaDon)}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-primary">Thực Hiện</button>
+
+                                            </form>
                                         </div>
                                 </div>
                             </div>

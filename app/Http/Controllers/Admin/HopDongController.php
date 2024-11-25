@@ -54,6 +54,9 @@ class HopDongController extends Controller
             $query->where('giaThue', '=', $filData['i_giaThue']);
         }
 
+        $query->orderByRaw('ISNULL(ngayKetThuc) DESC')
+            ->orderBy('ngayKetThuc', 'ASC'); // Sau đó sắp xếp tăng dần theo ngày hết hạn
+
         $hopdongs = $query->paginate(2);
         return view('admin.HopDong.index', compact('hopdongs'));
     }
@@ -63,11 +66,13 @@ class HopDongController extends Controller
      */
     public function create()
     {
+        session(['previous_url' => route('admin.hopdong.create')]);
         $phongs = Phong::where('trangThai', 0)->get();
         $khachThues = KhachThue::all();
         $dichvus = DichVu::all();
         $noithats = Phong_NT::all();
-        return view('admin.HopDong.create', compact('phongs', 'khachThues', 'dichvus', 'noithats'));
+        $maKT = session('maKT');
+        return view('admin.HopDong.create', compact('phongs', 'khachThues', 'dichvus', 'noithats', 'maKT'));
     }
 
     /**
@@ -126,6 +131,9 @@ class HopDongController extends Controller
         $hopdong = HopDong::find($maHopDong);
         $hopdong->ngayKetThuc = Date::now();
         $hopdong->save();
+        $phong = Phong::find($hopdong->maPhong);
+        $phong->trangThai = 0;
+        $phong->save();
         return redirect()->route('admin.hopdong.show', $maHopDong);
     }
 
@@ -185,11 +193,12 @@ class HopDongController extends Controller
     private function generateUserName($maPhong)
     {
         $tenPhong = Phong::find($maPhong)->tenPhong;
-        $maxUsername = User::where('userType', 2)->max('username');
+        $lusername = 'phong'.$tenPhong;
+        $maxUsername = User::where('userType', 2)->where('username', 'LIKE', "%{$lusername}%")->max('username');
         if (!$maxUsername) {
-            return 'phong' . $tenPhong . '00001';
+            return 'phong' . $tenPhong . '1';
         }
-        $num = filter_var($maxUsername, FILTER_SANITIZE_NUMBER_INT);
+        $num = str_replace($lusername, '', $maxUsername);
 
         $num = (int)$num + 1;
         return 'phong' . $tenPhong . $num;
@@ -214,7 +223,7 @@ class HopDongController extends Controller
             'maKT' => $allData['maKT'],
             'userId' => $userId,
             'ngayKy' => $allData['ngayKy'],
-            'ngayHH' => $allData['ngayHH'],
+            'ngayHetHan' => $allData['ngayHetHan'],
             'giaThue' => $allData['giaThue'],
             'tienCoc' => $allData['tienCoc']
         ];

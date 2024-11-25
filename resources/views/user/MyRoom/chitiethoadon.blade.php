@@ -7,7 +7,8 @@
     <div class="container p-4 mt-4">
         <div>
             <button class="btn btn-dark" onclick="window.location.href='{{route('user.phongcuatoi')}}'">
-                back
+                <i class="bi bi-arrow-left"></i>
+                Quay lại
             </button>
         </div>
         <div class="d-flex justify-content-center">

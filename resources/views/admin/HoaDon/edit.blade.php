@@ -8,7 +8,8 @@
 
         <div class="d-flex justify-content-between py-2 my-2">
             <button class="btn btn-dark" onclick="window.location.href='{{route('admin.hoadon.index')}}'">
-                Quay lai
+                <i class="bi bi-arrow-left"></i>
+                Quay lại
             </button>
         </div>
         <form action="{{route('admin.hoadon.update', $hoadon->maHoaDon)}}" method="post">

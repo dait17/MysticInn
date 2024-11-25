@@ -287,27 +287,47 @@ class HoaDonController extends Controller
             'sddv_ssd.*.giaTri.min' => 'Số sử dụng phải lớn hơn hoặc bằng 0.',
         ]);
         $hoadon = HoaDon::find($id);
+        $hoadon->trangThai = (boolean)$request->input('trangThai');
+        $hoadon->save();
         $sddv_sd = $request->input('sddv_sd');
         $sddv_sc = $request->input('sddv_sc');
         $sddv_ssd = $request->input('sddv_ssd');
         $thanhtoans = ThanhToan_DV::where('maHoaDon', $hoadon->maHoaDon)->get();
         $sdd_arr = [];
+
+        DB::table('sudungdv')
+            ->where('maHoaDon', 33)->where('maDKDV', 26) // Thay đổi điều kiện WHERE tùy theo yêu cầu
+            ->update([
+                'soDau' => 1,
+                'soCuoi' => 5,
+            ]);
+        DB::table('sudungdv')
+            ->where('maHoaDon', 33)->where('maDKDV', 27) // Thay đổi điều kiện WHERE tùy theo yêu cầu
+            ->update([
+                'soDau' => 3,
+                'soCuoi' => 9,
+            ]);
+
+
         foreach ($thanhtoans as $tt) {
             if (!$tt->dangkydv->dichvu->dvThang) {
-                $soSD = $sddv_ssd[$tt->maDKDV]['giaTri'];
-                $sddv = SDDichVu::where('maHoaDon', $hoadon->maHoaDon)->where('maDKDV', $tt->maDKDV)->first();
-                $sddv->soDau = $sddv_sd[$tt->maDKDV]['giaTri'];
-                $sddv->soCuoi =$sddv_sc[$tt->maDKDV]['giaTri'];
-                $sddv->save();
-                $sdd_arr[] = $tt;
+                DB::table('sudungdv')
+                    ->where('maHoaDon', $hoadon->maHoaDon)->where('maDKDV', $tt->maDKDV) // Thay đổi điều kiện WHERE tùy theo yêu cầu
+                    ->update([
+                        'soDau' => $sddv_sd[$tt->maDKDV]['giaTri'],
+                        'soCuoi' => $sddv_sc[$tt->maDKDV]['giaTri'],
+                    ]);
 
+                DB::table('thanhtoan_dv')
+                    ->where('maHoaDon', $hoadon->maHoaDon)->where('maDKDV', $tt->maDKDV) // Thay đổi điều kiện WHERE tùy theo yêu cầu
+                    ->update([
+                        'soSuDung' => $sddv_ssd[$tt->maDKDV]['giaTri'],
+                    ]);
 
-                $tt->soSuDung = $soSD;
-                $tt->save();
             }
 
         }
-        dd($sddv_ssd);
+//        dd($sdd_arr);
 //        dd($request->all());
         return redirect()->route('admin.hoadon.show', $hoadon->maHoaDon);
     }
@@ -317,7 +337,8 @@ class HoaDonController extends Controller
      */
     public function destroy(string $id)
     {
-        dd($id);
+
+        HoaDon::destroy($id);
         return redirect()->route('admin.hoadon.index');
     }
 }
