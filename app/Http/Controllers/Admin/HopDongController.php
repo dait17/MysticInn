@@ -54,10 +54,10 @@ class HopDongController extends Controller
             $query->where('giaThue', '=', $filData['i_giaThue']);
         }
 
-        $query->orderByRaw('ISNULL(ngayKetThuc) DESC')
-            ->orderBy('ngayKetThuc', 'ASC'); // Sau đó sắp xếp tăng dần theo ngày hết hạn
+//        $query->orderByRaw('ISNULL(ngayKetThuc) DESC')
+//            ->orderBy('ngayKetThuc', 'ASC'); // Sau đó sắp xếp tăng dần theo ngày hết hạn
 
-        $hopdongs = $query->paginate(2);
+        $hopdongs = $query->paginate(5);
         return view('admin.HopDong.index', compact('hopdongs'));
     }
 

@@ -55,7 +55,7 @@
                         <li class="mt-2 p-1"><strong>Phòng:</strong> {{$hopdong->phong->tenPhong}}</li>
                         <li class="mt-2 p-1"><strong>Ngày ký:</strong> {{$hopdong->ngayKy}}</li>
                         <li class="mt-2 p-1"><strong>Ngày hết
-                                hạn:</strong> {{!$hopdong->ngayHH?'Không thời hạn':$hopdong->ngayHH}}</li>
+                                hạn:</strong> {{!$hopdong->ngayHetHan?'Không thời hạn':$hopdong->ngayHetHan}}</li>
                         @if($hopdong->ngayKetThuc)
                             <li class="mt-2 p-1"><strong>Ngày trả phòng:</strong> {{$hopdong->ngayKetThuc}}</li>
                         @endif
@@ -90,7 +90,7 @@
                         <tbody>
                         <tr>
                             <td>1</td>
-                            <td>{{$hopdong->khachthue->hoKT.' '.$hopdong->khachthue->hoKT}}</td>
+                            <td>{{$hopdong->khachthue->hoKT.' '.$hopdong->khachthue->tenKT}}</td>
                             <td>{{$hopdong->ngayKy}}</td>
                             <td>{{$hopdong->ngayKetThuc}}</td>
                             <td>
