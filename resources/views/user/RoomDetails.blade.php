@@ -3,7 +3,9 @@
 @section('title', 'Room Details Page')
 
 @section('content')
-{{--  HTML Phần Home ở đây  --}}
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
 <style>
     .container {
     max-width: 1200px;
@@ -201,118 +203,64 @@
 }
 </style>
     <div class="container">
-        <header class="header">
-            <h1>Phòng thuê tại đường 8C KĐT Lê Hồng Phong</h1>
-            <p>20m², 1.6 triệu/tháng</p>
-        </header>
-
         <div class="content">
-            <div class="images">
-                <div class="slideshow">
-                    <button class="prev" onclick="prevSlide()">&#10094;</button>
-                    <img id="main-image" src="https://via.placeholder.com/600x400" alt="Ảnh lớn">
-                    <button class="next" onclick="nextSlide()">&#10095;</button>
+            <div id="carouselExampleCaptions" style="width:50%;" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Ảnh đầu tiên -->
+                    <div class="carousel-item active">
+                        <img src="{{ asset('Images/'.$phong->anhDD) }}" class="d-block w-100" alt="...">
+                    </div>
+                    <!-- Các ảnh trong $anhPhongs -->
+                    @foreach ($anhPhongs as $p)
+                    <div class="carousel-item">
+                        <img src="{{ asset('Images/'.$p->duongDan) }}" class="d-block w-100" alt="...">
+                    </div>
+                    @endforeach
                 </div>
-                <div class="thumbnails">
-                    <img src="https://via.placeholder.com/600x400" alt="Phòng trọ 1" onclick="changeSlide(0)">
-                    <img src="https://via.placeholder.com/600x400" alt="Phòng trọ 2" onclick="changeSlide(1)">
-                    <img src="https://via.placeholder.com/600x400" alt="Phòng trọ 3" onclick="changeSlide(2)">
-                    <img src="https://via.placeholder.com/600x400" alt="Phòng trọ 4" onclick="changeSlide(3)">
-                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-
             <div class="details">
                 <h2>Thông tin mô tả</h2>
                 <p>
-                    Nằm ngay trung tâm thành phố, khu đô thị Lê Hồng Phong 2, đường 8C, số 20.4, Phường Phước Hải,
-                    khu vực yên tĩnh, môi trường thoáng mát trong lành, an ninh camera.
+                    {{$phong->ghiChu}}
                 </p>
-                <p><strong>Giá:</strong> 1.6 triệu/tháng</p>
-                <p><strong>Diện tích:</strong> 20m²</p>
+                <p><strong>Giá:</strong> {{ number_format($phong->giaPhong, 0) }} vnđ/tháng</p>
+                <p><strong>Diện tích:</strong> {{$phong->dienTich}}m²</p>
                 <p><strong>Nội thất:</strong> Tủ lạnh, máy lạnh, bàn ghế, tủ quần áo, bếp...</p>
                 <p><strong>Tình trạng:</strong> Cho thuê</p>
-                <button class="contact">Liên hệ ngay</button>
+                <button class="contact">Liên hệ ngay : 0868439374</button>
             </div>
         </div>
+        
 
         <div class="similar-posts">
             <h2>Có thể bạn quan tâm</h2>
             <div class="posts-container">
+                @foreach ($randomPhongs as $item)
                 <div class="post">
-                    <img src="https://via.placeholder.com/300x200" alt="Phòng trọ 1">
-                    <p class="title">Phòng trọ Nha Trang trung tâm thành phố phục vụ th...</p>
-                    <p class="status">Nội thất đầy đủ</p>
-                    <p class="price">2,5 triệu/tháng</p>
-                </div>
-                <div class="post">
-                    <img src="https://via.placeholder.com/300x200" alt="Phòng trọ 2">
-                    <p class="title">Trọ cho thuê</p>
+                    <img src="{{ asset('Images/'.$item->anhDD)}}" alt="Phòng trọ 1">
+                    <p class="title">Tên phòng: {{$item->tenPhong}}</p>
+                    <p class="status">{{$item->dienTich}}m²</p>
                     <p class="status">Nhà trống</p>
-                    <p class="price">1,5 triệu/tháng</p>
+                    <p class="price">{{number_format($phong->giaPhong, 0) }} vnđ/tháng</p>
                 </div>
-                <div class="post">
-                    <img src="https://via.placeholder.com/300x200" alt="Phòng trọ 3">
-                    <p class="title">Phòng trọ bình dân 32m², Phước Long, Nha Trang</p>
-                    <p class="status">Nhà trống</p>
-                    <p class="price">1,7 triệu/tháng</p>
-                </div>
-                <div class="post">
-                    <img src="https://via.placeholder.com/300x200" alt="Phòng trọ 4">
-                    <p class="title">Nhà trọ số 7 đường nhân vị đường 23/10, 30m²...</p>
-                    <p class="status">Nội thất đầy đủ</p>
-                    <p class="price">1,8 triệu/tháng</p>
-                </div>
-                <div class="post">
-                    <img src="https://via.placeholder.com/300x200" alt="Phòng trọ 5">
-                    <p class="title">[PASS PHÒNG] – Cho thuê phòng trọ tại...</p>
-                    <p class="status">Nội thất đầy đủ</p>
-                    <p class="price">3,6 triệu/tháng</p>
-                </div>
+                @endforeach
             </div>
-            <button class="view-more">Xem thêm</button>
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="button" onclick="xemthem()" class="btn btn-dark">XEM THÊM</button>
+            </div>
         </div>
     </div>
 <script>
-    const images = [
-        "https://via.placeholder.com/600x400",
-        "https://via.placeholder.com/600x400?text=Phòng+2",
-        "https://via.placeholder.com/600x400?text=Phòng+3",
-        "https://via.placeholder.com/600x400?text=Phòng+4"
-    ];
-    let currentIndex = 0;
-
-    function showSlide(index) {
-        const mainImage = document.getElementById('main-image');
-        const thumbnails = document.querySelectorAll('.thumbnails img');
-
-        currentIndex = index;
-
-        // Update main image
-        mainImage.src = images[index];
-
-        // Highlight active thumbnail
-        thumbnails.forEach((thumb, i) => {
-            thumb.classList.toggle('active', i === index);
-        });
+    function xemthem() {
+        window.location.href = "{{ route('room') }}";
     }
-
-    function nextSlide() {
-        const nextIndex = (currentIndex + 1) % images.length;
-        showSlide(nextIndex);
-    }
-
-    function prevSlide() {
-        const prevIndex = (currentIndex - 1 + images.length) % images.length;
-        showSlide(prevIndex);
-    }
-
-    function changeSlide(index) {
-        showSlide(index);
-    }
-
-    // Initialize the first slide
-    document.addEventListener('DOMContentLoaded', () => {
-        showSlide(0);
-    });
 </script>
 @endsection

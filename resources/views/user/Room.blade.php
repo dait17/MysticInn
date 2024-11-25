@@ -3,556 +3,398 @@
 @section('title', 'Home Page')
 
 @section('content')
-<style>
-
-    .distance{
-        display: flex;
-    }
-
-    /* style bộ lọc */
-    .filter-container {
-        font-family: Arial, sans-serif;
-        width: 300px;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        background-color: #fff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    h3 {
-        font-size: 16px;
-        color: #333;
-        margin-bottom: 10px;
-    }
-
-    .filter-input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-
-    .filter-buttons {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-
-    .btn {
-        padding: 8px 12px;
-        background-color: #f5f5f5;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .btn:hover {
-        background-color: #007bff;
-        color: #fff;
-    }
-
-    .filter-select select {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-
-    .filter-range label {
-        font-size: 14px;
-        margin-bottom: 8px;
-        display: block;
-    }
-
-    .filter-price {
-        display: flex;
-        gap: 10px;
-    }
-
-    .filter-price input {
-        width: 50%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-
-    .filter-status select {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-
-    .filter-actions {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-    }
-
-    .btn-clear {
-        padding: 8px 16px;
-        background-color: #f5f5f5;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .btn-apply {
-        padding: 8px 16px;
-        background-color: #37cfa2;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .btn-apply:hover {
-        background-color: #0056b3;
-    }
-    /* end style bộ lọc */
-
-    /* style card */
-    /* Container chứa các card */
-    .room-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: flex-start;
-        padding: 20px;
-    }
-
-    /* Card từng phòng trọ */
-    .room-card {
-        flex: 1 1 calc(33.33% - 20px);
-        max-width: calc(33.33% - 20px); 
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-        background-color: #fff;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .room-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Hình ảnh trong card */
-    .room-image {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-    }
-
-    /* Thông tin phòng trọ */
-    .room-info {
-        padding: 15px;
-        font-family: Arial, sans-serif;
-        color: #333;
-    }
-
-    .room-title {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #37cfa2;
-    }
-
-    .room-price, .room-area, .room-location, .room-status {
-        font-size: 14px;
-        margin: 5px 0;
-    }
-
-    /* Nút xem chi tiết */
-    .room-detail-btn {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        background-color: #37cfa2;
-        color: #fff;
-        text-align: center;
-        border: none;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        transition: background-color 0.3s;
-    }
-
-    .room-detail-btn:hover {
-        background-color: #37cfa1;
-    }
-
-    @media (max-width: 768px) {
-        .room-card {
-            flex: 1 1 100%;
-            max-width: 100%;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
         }
-    }
+        .card {
+            border: none;
+            font-size: 16px;
+        }
+        .content-box {
+            width: 50%;
+            margin: 150px 0 0 135px ;
+            background-color: #ffffff;
+            text-align: center;
+        }
 
-    /* end style card */
+        .content-box h3 {
+            text-transform: none;
+            font-size: 27px;
+            margin-bottom: 15px;
+        }
 
-    /* style quảng cáo */
-    .advertisement {
-        width: 100%;
-        max-width: 600px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        font-family: Arial, sans-serif;
-        position: relative;
-    }
+        .content-box p {
+            text-align: center;
+            color: #555555;
+            font-size: 15px;
+            line-height: 1.5;
+            text-align: justify;
+        }
 
-    .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-    }
+        .card-body .btn{
+            color: black;
+            background: white;
+            border: 1px solid black;
+        }
 
-    .ad-content h2 {
-        font-size: 24px;
-        color: #333;
-        margin-bottom: 10px;
-    }
+        .card-text{
+            letter-spacing: 1px;
+        }
+        .all {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-start;
+            margin: 50px 100px 0 150px;
+        }
+        .card .tt{
+            display: flex;
+            justify-content: center;;
+        }
+        
+        .sp-list {
+            flex: 0 0 calc(25% - 10px);
+            box-sizing: border-box;
+        }
+        .sp-list .card img {
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 0;
+            display: block;
+            box-sizing: border-box;
+        }
+        .sp-list .card {
+            border: 1px solid #ddd;
+            border-top: none;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: #fff;
+            transition: box-shadow 0.3s ease-in-out;
+        }
 
-    .description {
-        font-size: 16px;
-        color: #555;
-        margin-bottom: 20px;
-    }
+        .sp-list > .card:hover {
+            transition: box-shadow 0.3s ease-in-out;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            color: rgba(102,102,102,.85);
+        }
 
-    .features h3, .contact h3 {
-        font-size: 18px;
-        color: #333;
-        margin-bottom: 10px;
-    }
+        .sp-list .card .btn{
+            border: 2px solid #000000;
+            margin-bottom: 5px;
+        }
 
-    .features ul {
-        list-style: none;
-        padding-left: 0;
-    }
+        .sp-list .card .btn:hover{
+            background-color: black;
+            color: white;
+        }
 
-    .features li {
-        font-size: 16px;
-        color: #555;
-        margin-bottom: 8px;
-    }
+        .filter-container {
+            position: relative;
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 0px 20px;
+            display: block;
+            width: fit-content;
+            box-sizing: border-box;
+            margin: 50px auto;
+        }
 
-    .contact p {
-        font-size: 16px;
-        color: #555;
-        margin-bottom: 5px;
-    }
+        .filter-header {
+            position: absolute;
+            top: -18px;
+            left: 20px;
+            background-color: #fff;
+            padding: 5px 10px;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 10px;
+            box-shadow: none;
+        }
 
-    .call-to-action {
-        width: 100%;
-        padding: 10px;
-        background-color: #37cfa2;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 20px;
-    }
+        .filter-content {
+            margin-top: 25px;
+        }
+        .tenphong{
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            line-height: 35px;
+        }
+        .tenphong input{
+            margin: 0 10px;
+            width: 90%;
+            border: none;
+        }
+        .tenphong input:focus{
+            outline: none;
+        }
+        .reset-button {
+            position: absolute;
+            bottom: -18px;
+            right: 20px;
+            background-color: #fff;
+            padding: 5px 15px;
+            font-weight: bold;
+            font-size: 15px;
+            letter-spacing: 1px;;
+            color: #0194F3;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: none;
+        }
+        .reset-button:hover {
+            color: rgb(2, 100, 200);;
+        }
+        .btn {
+            padding: 5px 12px;
+            font-size: 12px;
+        }
+        .sparkle {
+            position: relative;
+            display: inline-block;
+            font-weight: bold;
+            color: #000;
+            background: linear-gradient(45deg, red, red, orange, orange,yellow,yellow);
+            background-size: 400% 400%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: shimmer 2.5s infinite linear;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 12px rgba(255, 215, 0, 0.6);
+        }
 
-    .call-to-action:hover {
-        background-color: #37cfa1;
-    }
+        .sparkle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 60%);
+            transform: translate(-50%, -50%) scale(1);
+            animation: glow 1.5s infinite alternate;
+            pointer-events: none; /* Không ảnh hưởng đến thao tác chuột */
+            z-index: -1;
+        }
 
-    .ad-image img {
-        width: 100%;
-        border-radius: 8px;
-        margin-bottom: 20px;
-    }
-    /* end style quảng cáo */
-    .room-ads {
-        margin: 20px auto;
-        width: 100%;
-        max-width: 800px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px; /* Khoảng cách giữa các quảng cáo */
-        justify-content: center; /* Căn giữa các quảng cáo */
-    }
+        @keyframes shimmer {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
 
-    .room-ad {
-        width: 100%;
-        max-width: 250px;
-        padding: 15px;
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        font-family: Arial, sans-serif;
-        text-align: center;
-    }
-
-    .room-ad img {
-        width: 100%;
-        border-radius: 8px;
-    }
-
-    .pagination-wrapper {
-        width: 100%;
-        display: flex;
-        justify-content: center; /* Căn giữa phân trang */
-        margin-top: 20px;
-    }
-
-    .pagination-buttons {
-        display: flex;
-        align-items: center;
-    }
-
-    .pagination-buttons button {
-        padding: 8px 16px;
-        margin: 0 5px;
-        background-color: #37cfa2;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .pagination-buttons button:hover {
-        background-color: #37cfa1;
-    }
-
-    .pagination-buttons span {
-        font-size: 18px;
-        margin: 0 10px;
-    }
-</style>
-<script>
-    function closeAd() {
-        document.getElementById('ad-container').style.display = 'none';
-    }
-</script>
-{{-- Bộ lọc --}}
-<div class = "distance">
+        @keyframes glow {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.4;
+            }
+        }
+    </style>
+</head>
+<body>
     <div class="filter-container">
-        <h3>Tìm kiếm quanh bạn</h3>
-        <input type="text" placeholder="Nhập vị trí và khoảng cách tìm kiếm" class="filter-input">
-
-        <h3>Tìm theo khu vực</h3>
-        <div class="filter-buttons">
-            <button class="btn">Tp Hồ Chí Minh</button>
-            <button class="btn">Hà Nội</button>
+        <div class="filter-header">Bộ lọc</div>
+        <div class="filter-content">
+            <table>
+                <tr>
+                    <td style="padding-bottom: 4px;">Trạng thái: </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="ttphong" id="paidStatus" value="set">
+                            <label class="form-check-label" for="paidStatus">
+                                Còn trống
+                            </label>
+                        </div>
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                            <div class="form-check">
+                            <input class="form-check-input" type="radio" name="ttphong" id="unpaidStatus" value="unset">
+                            <label class="form-check-label" for="unpaidStatus">
+                                Đã cho thuê
+                            </label>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr>
+                    <td style="padding-bottom: 4px;">Sắp xếp giá: </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="ttgia" id="paidStatus" value="set">
+                            <label class="form-check-label" for="paidStatus">
+                                Thấp đến cao
+                            </label>
+                        </div>
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                            <div class="form-check">
+                            <input class="form-check-input" type="radio" name="ttgia" id="unpaidStatus" value="unset">
+                            <label class="form-check-label" for="unpaidStatus">
+                                Cao đến thấp
+                            </label>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr>
+                    <td>Tên phòng:</td>
+                    <td></td>
+                    <td colspan="4">
+                        <div class="tenphong">
+                            <input type="text" id="roomName">
+                        </div>
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td></tr>
+            </table>
         </div>
-        <div class="filter-select">
-            <select>
-                <option>Chọn tỉnh thành</option>
-                <option>Khánh Hòa</option>
-                <option>Hồ Chí Minh</option>
-            </select>
-            <select>
-                <option>Chọn quận huyện</option>
-            </select>
-            <select>
-                <option>Chọn phường xã</option>
-            </select>
-        </div>
-
-        <div class="filter-range">
-            <label>Giá thuê</label>
-            <div class="filter-price">
-                <input type="number" placeholder="Giá thuê tối thiểu">
-                <input type="number" placeholder="Giá thuê tối đa">
-            </div>
-        </div>
-
-        <div class="filter-range">
-            <label>Diện tích</label>
-            <div class="filter-price">
-                <input type="number" placeholder="Diện tích tối thiểu">
-                <input type="number" placeholder="Diện tích tối đa">
-            </div>
-        </div>
-
-        <div class="filter-status">
-            <label>Tình trạng nội thất</label>
-            <select>
-                <option>Tất cả</option>
-                <option>Nội thất cao cấp</option>
-                <option>Nội thất đầy đủ</option>
-                <option>Nhà trống</option>
-            </select>
-        </div>
-
-        <div class="filter-actions">
-            <button class="btn-clear">Xóa lọc</button>
-            <button class="btn-apply">Áp dụng</button>
-        </div>
+        <div class="reset-button" onclick="resetFilters()">Đặt lại</div>
     </div>
-{{-- end bộ lọc --}}
-
-{{-- giao diện các phòng --}}
-    <div class="room-container">
-        <!-- Card 1 -->
-        <div class="room-card">
-            <img src="https://via.placeholder.com/300x200" alt="Hình ảnh phòng trọ" class="room-image">
-            <div class="room-info">
-                <h3 class="room-title">Phòng trọ 1</h3>
-                <p class="room-price">Giá: 3 triệu/tháng</p>
-                <p class="room-area">Diện tích: 25m²</p>
-                <p class="room-location">Địa chỉ: Quận 1, TP.HCM</p>
-                <p class="room-status">Nội thất: Đầy đủ</p>
+    <div class="all">
+        @foreach ($phongs as $p)
+            <div class="sp-list">
+                <div class="card" style="width: 18rem;">
+                    <img  src="{{ asset('Images/anhPhong/'.$p->anhDD) }}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Phòng: {{$p->tenPhong}}</h5>
+                        <p class="card-text">Diện tích: {{$p->dienTich}} mét vuông</p>
+                        <p class="card-text">Giá thuê: {{number_format($p->giaPhong, 0) }} vnđ</p>
+                        <div class="tt">
+                            <p class="card-text">Trạng thái:&nbsp;</p>
+                            @if ($p->trangThai === 0)
+                                <p class="card-text sparkle">Còn trống</p>
+                            @else
+                                <b style="color: lightcoral" class="card-text">Đã cho thuê</b>
+                            @endif
+                        </div>
+                        <a href="{{route('roomdetail',$p->maPhong)}}" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
             </div>
-            <button class="room-detail-btn">Xem chi tiết</button>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="room-card">
-            <img src="https://via.placeholder.com/300x200" alt="Hình ảnh phòng trọ" class="room-image">
-            <div class="room-info">
-                <h3 class="room-title">Phòng trọ 2</h3>
-                <p class="room-price">Giá: 5 triệu/tháng</p>
-                <p class="room-area">Diện tích: 30m²</p>
-                <p class="room-location">Địa chỉ: Quận 2, TP.HCM</p>
-                <p class="room-status">Nội thất: Cao cấp</p>
-            </div>
-            <button class="room-detail-btn">Xem chi tiết</button>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="room-card">
-            <img src="https://via.placeholder.com/300x200" alt="Hình ảnh phòng trọ" class="room-image">
-            <div class="room-info">
-                <h3 class="room-title">Phòng trọ 2</h3>
-                <p class="room-price">Giá: 5 triệu/tháng</p>
-                <p class="room-area">Diện tích: 30m²</p>
-                <p class="room-location">Địa chỉ: Quận 2, TP.HCM</p>
-                <p class="room-status">Nội thất: Cao cấp</p>
-            </div>
-            <button class="room-detail-btn">Xem chi tiết</button>
-        </div>
-        <!-- Card 3 -->
-        <div class="room-card">
-            <img src="https://via.placeholder.com/300x200" alt="Hình ảnh phòng trọ" class="room-image">
-            <div class="room-info">
-                <h3 class="room-title">Phòng trọ 2</h3>
-                <p class="room-price">Giá: 5 triệu/tháng</p>
-                <p class="room-area">Diện tích: 30m²</p>
-                <p class="room-location">Địa chỉ: Quận 2, TP.HCM</p>
-                <p class="room-status">Nội thất: Cao cấp</p>
-            </div>
-            <button class="room-detail-btn">Xem chi tiết</button>
-        </div>
-        <!-- Card 3 -->
-        <div class="room-card">
-            <img src="https://via.placeholder.com/300x200" alt="Hình ảnh phòng trọ" class="room-image">
-            <div class="room-info">
-                <h3 class="room-title">Phòng trọ 2</h3>
-                <p class="room-price">Giá: 5 triệu/tháng</p>
-                <p class="room-area">Diện tích: 30m²</p>
-                <p class="room-location">Địa chỉ: Quận 2, TP.HCM</p>
-                <p class="room-status">Nội thất: Cao cấp</p>
-            </div>
-            <button class="room-detail-btn">Xem chi tiết</button>
-        </div>
-        <!-- Card 3 -->
-        <div class="room-card">
-            <img src="https://via.placeholder.com/300x200" alt="Hình ảnh phòng trọ" class="room-image">
-            <div class="room-info">
-                <h3 class="room-title">Phòng trọ 2</h3>
-                <p class="room-price">Giá: 5 triệu/tháng</p>
-                <p class="room-area">Diện tích: 30m²</p>
-                <p class="room-location">Địa chỉ: Quận 2, TP.HCM</p>
-                <p class="room-status">Nội thất: Cao cấp</p>
-            </div>
-            <button class="room-detail-btn">Xem chi tiết</button>
-        </div>
-        <!-- Card 3 -->
-        <div class="room-card">
-            <img src="https://via.placeholder.com/300x200" alt="Hình ảnh phòng trọ" class="room-image">
-            <div class="room-info">
-                <h3 class="room-title">Phòng trọ 2</h3>
-                <p class="room-price">Giá: 5 triệu/tháng</p>
-                <p class="room-area">Diện tích: 30m²</p>
-                <p class="room-location">Địa chỉ: Quận 2, TP.HCM</p>
-                <p class="room-status">Nội thất: Cao cấp</p>
-            </div>
-            <button class="room-detail-btn">Xem chi tiết</button>
-        </div>
-        <!-- Card 3 -->
-        <div class="room-card">
-            <img src="https://via.placeholder.com/300x200" alt="Hình ảnh phòng trọ" class="room-image">
-            <div class="room-info">
-                <h3 class="room-title">Phòng trọ 2</h3>
-                <p class="room-price">Giá: 5 triệu/tháng</p>
-                <p class="room-area">Diện tích: 30m²</p>
-                <p class="room-location">Địa chỉ: Quận 2, TP.HCM</p>
-                <p class="room-status">Nội thất: Cao cấp</p>
-            </div>
-            <button class="room-detail-btn">Xem chi tiết</button>
-        </div>
-        <!-- Card 3 -->
-        <div class="room-card">
-            <img src="https://via.placeholder.com/300x200" alt="Hình ảnh phòng trọ" class="room-image">
-            <div class="room-info">
-                <h3 class="room-title">Phòng trọ 2</h3>
-                <p class="room-price">Giá: 5 triệu/tháng</p>
-                <p class="room-area">Diện tích: 30m²</p>
-                <p class="room-location">Địa chỉ: Quận 2, TP.HCM</p>
-                <p class="room-status">Nội thất: Cao cấp</p>
-            </div>
-            <button class="room-detail-btn">Xem chi tiết</button>
-        </div>
+        @endforeach
     </div>
-{{-- end giao diện các phòng --}}
+</body>
+</html>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const statusElements = document.querySelectorAll(".card-text:nth-child(2)");
+    statusElements.forEach((element) => {
+        if (element.textContent.includes("Còn phòng")) {
+            element.classList.add("sparkle");
+        }
+    });
+});
 
-{{-- Quảng cáo phòng trọ --}}
-    <div class="advertisement" id="ad-container">
-        <div class="ad-content">
-            <button class="close-btn" onclick="closeAd()">×</button>
-            <div class="ad-image">
-                <img src="https://via.placeholder.com/600x300" alt="Phòng trọ">
-            </div>
-            <h2>Cho Thuê Phòng Trọ Rẻ - Thoáng Mát, Tiện Nghi</h2>
-            <p class="description">
-                Bạn đang tìm một phòng trọ sạch sẽ, thoáng mát, gần trung tâm? Phòng trọ của chúng tôi có đầy đủ tiện nghi, không gian sống thoải mái, an ninh đảm bảo.
-            </p>
-            <div class="features">
-                <h3>Tiện Nghi</h3>
-                <ul>
-                    <li>Phòng rộng 20m², đầy đủ ánh sáng</li>
-                    <li>Điều hòa, quạt mát, máy nước nóng</li>
-                    <li>Wi-Fi miễn phí tốc độ cao</li>
-                    <li>Nhà vệ sinh riêng biệt, sạch sẽ</li>
-                    <li>Gần các khu mua sắm, trường học, bệnh viện</li>
-                </ul>
-            </div>
-            <div class="contact">
-                <h3>Liên Hệ</h3>
-                <p>Để biết thêm chi tiết, vui lòng liên hệ với chúng tôi qua:</p>
-                <p>Điện thoại: <strong>0901234567</strong></p>
-                <p>Email: <strong>thuephong@gmail.com</strong></p>
-            </div>
-            <button class="call-to-action">Liên hệ ngay</button>
-        </div>
-    </div>
-    {{-- End Quảng cáo phòng trọ --}}
-    
-</div>
-<div class="room-ads" id="room-ads">
-    <!-- Các phòng trọ sẽ được hiển thị ở đây -->
-</div>
 
-<!-- Phân trang -->
-<div class="pagination-wrapper">
-    <div class="pagination-buttons" id="pagination">
-        <button class="prev-btn" onclick="changePage(-1)">← Previous</button>
-        <span id="page-number">Page 1</span>
-        <button class="next-btn" onclick="changePage(1)">Next →</button>
-    </div>
-</div>
+function resetFilters() {
+    const phong = document.querySelectorAll('input[name="ttphong"]');
+    phong.forEach(radio => radio.checked = false);
+    const gia = document.querySelectorAll('input[name="ttgia"]');
+    gia.forEach(radio => radio.checked = false);
+    document.getElementById("roomName").value = "";
+
+    let url = 'phong?';
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        const allDiv = document.querySelector('.all');
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        const newContent = tempDiv.querySelector('.all');
+        if (newContent) {
+            allDiv.innerHTML = newContent.innerHTML;
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+const roomNameInput = document.getElementById('roomName');
+const phongs = document.querySelectorAll('input[name="ttphong"]');
+const gias = document.querySelectorAll('input[name="ttgia"]');
+let debounceTimer;
+
+// Hàm gửi dữ liệu
+function sendData() {
+    const roomName = roomNameInput.value;
+    const phong = document.querySelector('input[name="ttphong"]:checked') ? document.querySelector('input[name="ttphong"]:checked').value : '';
+    const gia = document.querySelector('input[name="ttgia"]:checked') ? document.querySelector('input[name="ttgia"]:checked').value : '';
+    // Xây dựng URL với các tham số
+    let url = 'phong?';
+    if (phong) {
+        url += 'phong=' + phong + '&';
+    }
+    if (gia) {
+        url += 'gia=' + gia + '&';
+    }
+    if (roomName) {
+        url += 'roomName=' + encodeURIComponent(roomName);
+    }
+
+    // Gửi dữ liệu qua fetch
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        const allDiv = document.querySelector('.all');
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+
+        // Lấy các phần tử mới từ nội dung HTML trả về
+        const newContent = tempDiv.querySelector('.all');
+        if (newContent) {
+            allDiv.innerHTML = newContent.innerHTML; // Ghi đè nội dung cũ
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+    roomNameInput.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(sendData, 300);
+    });
+
+    phongs.forEach(radio => {
+            radio.addEventListener('change', sendData);
+        });
+    gias.forEach(radio => {
+        radio.addEventListener('change', sendData);
+    });
+</script>
 @endsection
