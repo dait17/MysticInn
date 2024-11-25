@@ -13,7 +13,7 @@ class HopDong extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'userId', 'id');
+        return $this->hasOne(User::class, 'id', 'userId');
     }
 
     public function phong()

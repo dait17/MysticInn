@@ -51,17 +51,17 @@
                                         <td>
                                             <input type="number" id="sd_{{$dk->maDKDV}}"
                                                    name="sddv_sd[{{ $dk->maDKDV }}][giaTri]" class="form-control"
-                                                   value="{{ old('noithat.' . $dk->maDKDV . '.giaTri', $dk->giaTri ?? 0) }}">
+                                                   value="{{isset($fildata[$dk->maDKDV]) ? $fildata[$dk->maDKDV] : null}}">
                                         </td>
                                         <td>
                                             <input type="number" id="sc_{{$dk->maDKDV}}"
                                                    name="sddv_sc[{{ $dk->maDKDV }}][giaTri]" class="form-control"
-                                                   value="{{ old('noithat.' . $dk->maDKDV . '.giaTri', $dk->giaTri ?? 0) }}">
+                                                   value="{{(isset($fildata[$dk->maDKDV]) ? $fildata[$dk->maDKDV] : null)+1}}">
                                         </td>
                                         <td>
                                             <input type="number" id="ssd_{{$dk->maDKDV}}"
                                                    name="sddv_ssd[{{ $dk->maDKDV }}][giaTri]" class="form-control"
-                                                   value="{{ old('noithat.' . $dk->maDKDV . '.giaTri', $dk->giaTri ?? 0) }}"
+                                                   value="{{ old('noithat.' . $dk->maDKDV . '.giaTri', $dk->giaTri ?? 1) }}"
                                                     readonly >
                                         </td>
                                         <td>x{{number_format($dv->giaDV, '0', '.', ',')}}</td>

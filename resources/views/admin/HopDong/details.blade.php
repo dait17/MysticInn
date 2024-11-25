@@ -67,6 +67,9 @@
                                 cọc:</strong> {{number_format($hopdong->tienCoc, '0', '.', ',')}}
                             VND
                         </li>
+                        <li class="mt-2 p-1">
+                            <strong>Tài khoản:</strong> {{$hopdong->user->username}}
+                        </li>
                     </ul>
                 </div>
             </div>

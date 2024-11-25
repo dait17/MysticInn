@@ -129,7 +129,13 @@ class HoaDonController extends Controller
         $maPhong = $data['maPhong'];
         $hopdong = HopDong::where('maPhong', $maPhong)->whereNull('ngayKetThuc')->first();
         $dkdvs = DangKyDV::where('maHopDong', $hopdong->maHopDong)->whereNull('ngayHuy')->get();
-        return view('admin.HoaDon.create', compact('nam', 'thang', 'hopdong', 'dkdvs'));
+        $fildata = [];
+        foreach ($dkdvs as $dk) {
+            $sc = SDDichVu::where('maDKDV', $dk->maDKDV)->max('soCuoi');
+
+            $fildata[$dk->maDKDV] = $sc??0;
+        }
+        return view('admin.HoaDon.create', compact('nam', 'thang', 'hopdong', 'dkdvs', 'fildata'));
     }
 
     /**
