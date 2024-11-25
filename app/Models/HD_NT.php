@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class HD_NT extends Model
 {
     protected $table = 'hd_nt';
-    protected $timestamp = false;
+    public $timestamps = false;
     protected $fillable = ['maHopDong', 'maNT', 'giaNT', 'trangThai'];
 
     public function hopdong()

@@ -50,6 +50,7 @@ Route::middleware([CheckPermission::class])->group(function () {
         Route::resource('dichvu', DichVuController::class);
         Route::resource('khachthue', KhachThueController::class);
         Route::get('hoadon/inds', [HoaDonController::class, 'inds'])->name('hoadon.inds');
+        Route::get('hoadon/laythangchuatao/{maPhong}', [HoaDonController::class, 'layThangCT_HoaDon'])->name('hoadon.laythangchuatao');
         Route::resource('hoadon', HoaDonController::class);
     });
 });
